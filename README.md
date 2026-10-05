@@ -1,100 +1,180 @@
 <div align="center">
 
-# 🗄️ SQL_Server_project
+# 🗄️ SQL Server Project
 
-**Un projet d'entraînement autour de SQL Server. Conception de schémas, requêtes et exercices.**
+**A hands-on training project focused on SQL Server: schema design, queries, and exercises.**
 
-![Statut](https://img.shields.io/badge/statut-en%20cours-orange?style=flat)
-![Langage](https://img.shields.io/badge/langage-SQL-336791?style=flat&logo=microsoftsqlserver&logoColor=white)
-![Licence](https://img.shields.io/badge/licence-MIT-green?style=flat)
+[![SQL Server](https://img.shields.io/badge/SQL%20Server-CC2927?style=flat&logo=microsoftsqlserver&logoColor=white)](#)
+[![Python](https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=white)](#)
+[![T-SQL](https://img.shields.io/badge/T--SQL-336791?style=flat&logo=microsoftsqlserver&logoColor=white)](#)
+[![License](https://img.shields.io/badge/License-MIT-lightgrey?style=flat)](#)
+
+<br>
+
+[![Stars](https://img.shields.io/github/stars/RufusTheDwarf/SQL_Server_project?style=flat&color=yellow)](https://github.com/RufusTheDwarf/SQL_Server_project/stargazers)
+[![Forks](https://img.shields.io/github/forks/RufusTheDwarf/SQL_Server_project?style=flat&color=blue)](https://github.com/RufusTheDwarf/SQL_Server_project/forks)
+[![Issues](https://img.shields.io/github/issues/RufusTheDwarf/SQL_Server_project?style=flat&color=red)](https://github.com/RufusTheDwarf/SQL_Server_project/issues)
+[![Last Commit](https://img.shields.io/github/last-commit/RufusTheDwarf/SQL_Server_project?style=flat&color=orange)](https://github.com/RufusTheDwarf/SQL_Server_project/commits/main)
 
 </div>
 
 ---
 
-## ⚠️ Statut du projet
+## 📖 Overview
 
-> [!WARNING]
-> **Ce projet est en cours de développement.** La version finale n'est pas encore prête.
-> Les fichiers sont en cours de réorganisation. La structure peut changer sans préavis.
+**SQL Server Project** is a personal training repository dedicated to mastering **SQL Server** and **T-SQL**. It contains a collection of exercises, database schemas, and Python scripts designed to generate test data and automate database creation.
 
----
+The project is a practical playground for exploring relational database concepts, from basic table creation to advanced querying and data manipulation. It is constantly evolving as new exercises and scenarios are added.
 
-## Présentation
+<br>
 
-`SQL_Server_project` est un projet personnel d'entraînement centré sur **SQL Server**.
-Il contient des exercices de base de données, des expérimentations de schémas et des requêtes écrites dans le cadre de l'apprentissage et du perfectionnement en SQL.
+## ✨ Features
 
-Le dépôt est divisé en deux dossiers :
-
-| Dossier | Rôle |
+| Feature | Description |
 |---|---|
-| `archive/` | Anciennes versions, brouillons et expérimentations conservés pour référence |
-| `version-finale/` | La version propre et finale, actuellement en préparation |
+| **Database Schema Design** | Complete T-SQL scripts to create databases, tables, constraints, and relationships. |
+| **Python Data Generation** | Scripts that automatically generate realistic test data for the database. |
+| **Query Exercises** | A set of SQL queries covering joins, subqueries, aggregations, and window functions. |
+| **Investigation Scenario** | A fun "find the cheaters" exercise using SQL queries to solve a mystery. |
+| **Open House Project** | A complete database project simulating a school open house event. |
+| **Documentation** | Installation guides, admin manuals, and visitor manuals for the open house project. |
 
----
+<br>
 
-## Structure du dépôt
+## 🗂️ Project Structure
 
 ```text
 SQL_Server_project/
-├── archive/           # anciens brouillons et expérimentations
-├── version-finale/    # version actuelle en cours de finalisation
+├── archive/
+│   ├── version-finale/
+│   │   ├── 01-creation-db/          # Database creation scripts
+│   │   ├── 02-scenario-enquete/     # Investigation scenario files
+│   │   ├── 03-manuels/              # User manuals
+│   │   └── portes-ouvertes/         # Open house project
+│   ├── Y-141-Rafael_Melo-*.sql      # SQL scripts
+│   ├── Y-141-Rafael_Melo-*.py       # Python generation scripts
+│   └── *.docx                       # Reports and documentation
 ├── LICENSE
 └── README.md
 ```
 
----
+<br>
 
-## Prérequis
+## 🚀 Getting Started
 
-- **Microsoft SQL Server** (version récente 2022 ou plus recommandé)
-- **SQL Server Management Studio (SSMS)** ou **Azure Data Studio** pour exécuter les scripts
-- Des bases en SQL pour explorer les fichiers
+### Prerequisites
 
----
+- **SQL Server** (Express, Developer, or Standard edition)
+- **SQL Server Management Studio (SSMS)** or **Azure Data Studio**
+- **Python 3.8+** with `pyodbc` or `pymssql` (for data generation scripts)
 
-## Utilisation
+### Installation
 
-Le projet étant encore en cours de finalisation, les étapes exactes dépendent du dossier ouvert :
-
-1. Cloner le dépôt :
+1. **Clone the repository**
    ```bash
    git clone https://github.com/RufusTheDwarf/SQL_Server_project.git
    cd SQL_Server_project
    ```
-2. Ouvrir les fichiers `.sql` du dossier `version-finale/` avec SSMS ou Azure Data Studio.
-3. Exécuter les scripts sur une instance locale de SQL Server.
 
-> [!NOTE]
-> Un guide pas à pas complet sera ajouté une fois la version finale terminée.
+2. **Create the database**
+   - Open SSMS and connect to your SQL Server instance.
+   - Run the SQL scripts located in the `archive/` folder to create the schema and tables.
 
----
+3. **Generate test data (optional)**
+   ```bash
+   pip install pyodbc
+   python archive/Y-141-Rafael_Melo-GenerationBd.py
+   ```
 
-## Feuille de route
+4. **Run the queries**
+   - Open the query files and execute them in SSMS to explore the data.
 
-- [x] Premières expérimentations et brouillons
-- [x] Réorganisation des dossiers (`archive/` vs `version-finale/`)
-- [ ] Finaliser les scripts de `version-finale/`
-- [ ] Ajouter un guide complet d'installation et d'utilisation
-- [ ] Ajouter des exemples de requêtes et les résultats attendus
+<br>
 
----
+## 🛠️ Technologies
 
-## Contribuer
+| Category | Technology |
+|---|---|
+| **Database** | Microsoft SQL Server |
+| **Query Language** | T-SQL |
+| **Scripting** | Python 3 |
+| **Tools** | SSMS, Azure Data Studio, Git |
 
-Les suggestions et corrections sont bienvenues. Ouvrez une [Issue](https://github.com/RufusTheDwarf/SQL_Server_project/issues/new) ou soumettez une Pull Request.
+<br>
 
----
+## 📚 What You Will Find
 
-## Licence
+- **DDL Scripts** : `CREATE DATABASE`, `CREATE TABLE`, `ALTER TABLE`, and constraint definitions.
+- **DML Scripts** : `INSERT`, `UPDATE`, `DELETE`, and `MERGE` statements.
+- **Query Exercises** : `SELECT` with joins, subqueries, `GROUP BY`, `HAVING`, and window functions.
+- **Python Automation** : Scripts that connect to SQL Server and generate test data.
+- **Scenarios** : Real-world inspired exercises like the "cheater investigation" and the "open house" database.
 
-MIT // voir [LICENSE](LICENSE).
+<br>
+
+## 🤝 Contributing
+
+Contributions are welcome.
+
+1. Fork the repository.
+2. Create a branch:
+   ```bash
+   git checkout -b feature/my-feature
+   ```
+3. Commit your changes:
+   ```bash
+   git add .
+   git commit -m "Add my feature"
+   ```
+4. Push the branch:
+   ```bash
+   git push origin feature/my-feature
+   ```
+5. Open a Pull Request.
+
+<br>
+
+## 📄 License
+
+This project is licensed under the **MIT License**. See the `LICENSE` file for details.
 
 ---
 
 <div align="center">
 
-<sub>Fait avec ❤️ par <a href="https://github.com/RufusTheDwarf">RufusTheDwarf</a></sub>
+### 👤 Author
+
+**RufusTheDwarf**
+
+[![GitHub](https://img.shields.io/badge/GitHub-RufusTheDwarf-181717?style=flat&logo=github&logoColor=white)](https://github.com/RufusTheDwarf)
+[![Repository](https://img.shields.io/badge/Repo-SQL__Server__project-2ea44f?style=flat&logo=git&logoColor=white)](https://github.com/RufusTheDwarf/SQL_Server_project)
+
+<br>
+
+### 💖 Acknowledgements
+
+- The **SQL Server community** for the endless documentation and resources.
+- **Microsoft** for SQL Server and the free Developer edition.
+- Everyone who shares SQL tips and tricks online.
+
+<br>
+
+### ⭐ Show Your Support
+
+If this project helped you learn something new, consider giving it a star.
+
+[![Star this repo](https://img.shields.io/badge/⭐_Star_this_repo-yellow?style=flat)](https://github.com/RufusTheDwarf/SQL_Server_project/stargazers)
+[![Report an issue](https://img.shields.io/badge/🐛_Report_an_issue-red?style=flat)](https://github.com/RufusTheDwarf/SQL_Server_project/issues)
+[![Fork this repo](https://img.shields.io/badge/🍴_Fork_this_repo-blue?style=flat)](https://github.com/RufusTheDwarf/SQL_Server_project/fork)
+
+<br>
+
+---
+
+<sub>Made with ❤️ and a lot of SQL by **RufusTheDwarf** · Licensed under MIT · © 2026</sub>
+
+<br>
+
+*"In SQL we trust."* 🗄️
 
 </div>
