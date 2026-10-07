@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Détection des joueurs suspects</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<main class="container">
+    <header class="hero">
+        <p class="eyebrow">PORTES OUVERTES · ETML</p>
+        <h1>Détectez les joueurs suspects</h1>
+        <p class="subtitle">
+            Modifiez les critères et observez quels joueurs correspondent au profil recherché.
+        </p>
+    </header>
+
+    <section class="panel">
+        <div class="panel-title">
+            <div>
+                <h2>Critères de détection</h2>
+                <p>Les valeurs définissent le profil recherché.</p>
+            </div>
+            <button type="button" class="secondary" onclick="setDemo()">Réinitialiser démo</button>
+        </div>
+
+        <form method="post">
+            <div class="grid">
+                <label>
+                    Heures de jeu maximum
+                    <input type="number" name="max_hours" step="0.01" min="0" value="{{ values.max_hours }}" required>
+                </label>
+                <label>
+                    Précision minimum (%)
+                    <input type="number" name="min_accuracy" step="0.01" min="0" max="100" value="{{ values.min_accuracy }}" required>
+                </label>
+                <label>
+                    Tirs à la tête minimum
+                    <input type="number" name="min_headshots" min="0" value="{{ values.min_headshots }}" required>
+                </label>
+                <label>
+                    Victoires minimum
+                    <input type="number" name="min_wins" min="0" value="{{ values.min_wins }}" required>
+                </label>
+                <label>
+                    Défaites maximum
+                    <input type="number" name="max_losses" min="0" value="{{ values.max_losses }}" required>
+                </label>
+                <label>
+                    Signalements « Triche » minimum
+                    <input type="number" name="min_cheat_reports" min="0" value="{{ values.min_cheat_reports }}" required>
+                </label>
+            </div>
+
+            <button class="primary" type="submit">Analyser la base</button>
+        </form>
+    </section>
+
+    {% if error %}
+    <section class="alert error">{{ error }}</section>
+    {% endif %}
+
+    {% if searched and not error %}
+    <section class="results">
+        <div class="results-header">
+            <div>
+                <p class="eyebrow">RÉSULTAT</p>
+                <h2>{{ results|length }} joueur(s) correspondent aux critères</h2>
+            </div>
+        </div>
+
+        {% if results %}
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Joueur</th>
+                        <th>Pays</th>
+                        <th>Heures</th>
+                        <th>Victoires</th>
+                        <th>Défaites</th>
+                        <th>Précision</th>
+                        <th>Tirs tête</th>
+                        <th>Signalements</th>
+                        <th>Triche</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for player in results %}
+                    <tr>
+                        <td>{{ player.id_joueur }}</td>
+                        <td class="name">{{ player.pseudo }}</td>
+                        <td>{{ player.pays }}</td>
+                        <td>{{ "%.2f"|format(player.heures_jeu) }}</td>
+                        <td>{{ player.victoires }}</td>
+                        <td>{{ player.defaites }}</td>
+                        <td>{{ "%.2f"|format(player.precision_tir) }}%</td>
+                        <td>{{ player.tirs_tete }}</td>
+                        <td>{{ player.total_signalements }}</td>
+                        <td><span class="badge">{{ player.signalements_triche }}</span></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="empty">
+            Aucun joueur ne correspond à tous les critères.
+        </div>
+        {% endif %}
+    </section>
+    {% endif %}
+</main>
+
+<script>
+function setDemo() {
+    document.querySelector('[name="max_hours"]').value = 100;
+    document.querySelector('[name="min_accuracy"]').value = 95;
+    document.querySelector('[name="min_headshots"]').value = 800;
+    document.querySelector('[name="min_wins"]').value = 400;
+    document.querySelector('[name="max_losses"]').value = 10;
+    document.querySelector('[name="min_cheat_reports"]').value = 3;
+}
+</script>
+</body>
+</html>
