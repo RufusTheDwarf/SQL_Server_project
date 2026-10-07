@@ -12,7 +12,7 @@
         <p class="eyebrow">PORTES OUVERTES · ETML</p>
         <h1>Détectez les joueurs suspects</h1>
         <p class="subtitle">
-            Modifiez les critères et observez quels joueurs correspondent au profil recherché.
+            Modifiez les critères : chaque critère validé augmente le score de suspicion.
         </p>
     </header>
 
@@ -20,7 +20,7 @@
         <div class="panel-title">
             <div>
                 <h2>Critères de détection</h2>
-                <p>Les valeurs définissent le profil recherché.</p>
+                <p>Un joueur est retenu à partir de {{ min_suspicion_score }} points de suspicion.</p>
             </div>
             <button type="button" class="secondary" onclick="setDemo()">Réinitialiser démo</button>
         </div>
@@ -66,7 +66,12 @@
         <div class="results-header">
             <div>
                 <p class="eyebrow">RÉSULTAT</p>
-                <h2>{{ results|length }} joueur(s) correspondent aux critères</h2>
+                <h2>{{ total_suspects }} joueur(s) suspect(s)</h2>
+                {% if total_suspects > results|length %}
+                <p class="subtitle">Les 100 profils les plus suspects sont affichés.</p>
+                {% else %}
+                <p class="subtitle">Le score combine les six critères sélectionnés.</p>
+                {% endif %}
             </div>
         </div>
 
@@ -75,6 +80,7 @@
             <table>
                 <thead>
                     <tr>
+                        <th>Score</th>
                         <th>ID</th>
                         <th>Joueur</th>
                         <th>Pays</th>
@@ -90,6 +96,7 @@
                 <tbody>
                     {% for player in results %}
                     <tr>
+                        <td><span class="badge">{{ player.score_suspicion }}/7</span></td>
                         <td>{{ player.id_joueur }}</td>
                         <td class="name">{{ player.pseudo }}</td>
                         <td>{{ player.pays }}</td>
@@ -107,7 +114,7 @@
         </div>
         {% else %}
         <div class="empty">
-            Aucun joueur ne correspond à tous les critères.
+            Aucun joueur n'atteint le score minimum de suspicion avec ces paramètres.
         </div>
         {% endif %}
     </section>
