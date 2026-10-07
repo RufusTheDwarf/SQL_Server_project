@@ -13,6 +13,8 @@ DEFAULTS = {
     "min_cheat_reports": 3,
 }
 
+MIN_SUSPICION_SCORE = 3
+
 def get_connection():
     server = os.getenv("SQL_SERVER", r".\SQLEXPRESS")
     database = os.getenv("SQL_DATABASE", "SQL_Server_Project")
@@ -30,15 +32,13 @@ def get_connection():
 
 def to_float(form, name, default):
     try:
-        value = float(form.get(name, default))
-        return value
+        return float(form.get(name, default))
     except (TypeError, ValueError):
         return float(default)
 
 def to_int(form, name, default):
     try:
-        value = int(form.get(name, default))
-        return value
+        return int(form.get(name, default))
     except (TypeError, ValueError):
         return int(default)
 
@@ -46,6 +46,7 @@ def to_int(form, name, default):
 def index():
     values = DEFAULTS.copy()
     results = []
+    total_suspects = 0
     error = None
     searched = request.method == "POST"
 
@@ -67,32 +68,58 @@ def index():
                 SUM(CASE WHEN motif = 'Triche' THEN 1 ELSE 0 END) AS signalements_triche
             FROM dbo.Signalements
             GROUP BY id_joueur
+        ),
+        Scores AS (
+            SELECT
+                j.id_joueur,
+                j.pseudo,
+                j.pays,
+                j.heures_jeu,
+                j.victoires,
+                j.defaites,
+                j.precision_tir,
+                j.tirs_tete,
+                ISNULL(s.total_signalements, 0) AS total_signalements,
+                ISNULL(s.signalements_triche, 0) AS signalements_triche,
+                (
+                    CASE WHEN j.heures_jeu <= ? THEN 1 ELSE 0 END +
+                    CASE WHEN j.precision_tir >= ? THEN 1 ELSE 0 END +
+                    CASE WHEN j.tirs_tete >= ? THEN 1 ELSE 0 END +
+                    CASE WHEN j.victoires >= ? THEN 1 ELSE 0 END +
+                    CASE WHEN j.defaites <= ? THEN 1 ELSE 0 END +
+                    CASE WHEN ISNULL(s.signalements_triche, 0) >= ? THEN 2 ELSE 0 END
+                ) AS score_suspicion
+            FROM dbo.Joueurs AS j
+            LEFT JOIN SignalementsJoueur AS s
+                ON s.id_joueur = j.id_joueur
+        ),
+        Suspicious AS (
+            SELECT
+                *,
+                COUNT(*) OVER() AS total_suspects
+            FROM Scores
+            WHERE score_suspicion >= ?
         )
         SELECT TOP 100
-            j.id_joueur,
-            j.pseudo,
-            j.pays,
-            j.heures_jeu,
-            j.victoires,
-            j.defaites,
-            j.precision_tir,
-            j.tirs_tete,
-            ISNULL(s.total_signalements, 0) AS total_signalements,
-            ISNULL(s.signalements_triche, 0) AS signalements_triche
-        FROM dbo.Joueurs AS j
-        LEFT JOIN SignalementsJoueur AS s
-            ON s.id_joueur = j.id_joueur
-        WHERE j.heures_jeu <= ?
-          AND j.precision_tir >= ?
-          AND j.tirs_tete >= ?
-          AND j.victoires >= ?
-          AND j.defaites <= ?
-          AND ISNULL(s.signalements_triche, 0) >= ?
+            id_joueur,
+            pseudo,
+            pays,
+            heures_jeu,
+            victoires,
+            defaites,
+            precision_tir,
+            tirs_tete,
+            total_signalements,
+            signalements_triche,
+            score_suspicion,
+            total_suspects
+        FROM Suspicious
         ORDER BY
-            ISNULL(s.signalements_triche, 0) DESC,
-            j.precision_tir DESC,
-            j.tirs_tete DESC,
-            j.victoires DESC;
+            score_suspicion DESC,
+            signalements_triche DESC,
+            precision_tir DESC,
+            tirs_tete DESC,
+            victoires DESC;
         """
 
         try:
@@ -106,9 +133,12 @@ def index():
                     values["min_wins"],
                     values["max_losses"],
                     values["min_cheat_reports"],
+                    MIN_SUSPICION_SCORE,
                 )
                 columns = [column[0] for column in cursor.description]
                 results = [dict(zip(columns, row)) for row in cursor.fetchall()]
+                if results:
+                    total_suspects = results[0]["total_suspects"]
         except pyodbc.Error as exc:
             error = (
                 "Impossible de se connecter à SQL Server. "
@@ -121,6 +151,8 @@ def index():
         "index.html",
         values=values,
         results=results,
+        total_suspects=total_suspects,
+        min_suspicion_score=MIN_SUSPICION_SCORE,
         error=error,
         searched=searched,
     )
