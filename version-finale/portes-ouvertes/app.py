@@ -5,12 +5,12 @@ import pyodbc
 app = Flask(__name__)
 
 DEFAULTS = {
-    "max_hours": 100,
-    "min_accuracy": 95,
-    "min_headshots": 800,
-    "min_wins": 400,
-    "max_losses": 10,
-    "min_cheat_reports": 3,
+    "max_hours": 0,
+    "min_accuracy": 0,
+    "min_headshots": 0,
+    "min_wins": 0,
+    "max_losses": 0,
+    "min_cheat_reports": 0,
 }
 
 MIN_SUSPICION_SCORE = 3
