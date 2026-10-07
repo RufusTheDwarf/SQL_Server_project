@@ -14,18 +14,18 @@ DEFAULTS = {
 }
 
 def get_connection():
-    server = os.getenv("SQL_SERVER", "localhost")
+    server = os.getenv("SQL_SERVER", r".\SQLEXPRESS")
     database = os.getenv("SQL_DATABASE", "SQL_Server_Project")
-    driver = os.getenv("SQL_DRIVER", "ODBC Driver 18 for SQL Server")
+    driver = os.getenv("SQL_DRIVER", "ODBC Driver 17 for SQL Server")
 
     connection_string = (
         f"DRIVER={{{driver}}};"
         f"SERVER={server};"
         f"DATABASE={database};"
         "Trusted_Connection=yes;"
-        "Encrypt=no;"
         "TrustServerCertificate=yes;"
     )
+
     return pyodbc.connect(connection_string, timeout=5)
 
 def to_float(form, name, default):
