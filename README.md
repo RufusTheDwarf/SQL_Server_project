@@ -45,10 +45,15 @@ The project is a practical playground for exploring relational database concepts
 
 ```text
 SQL_Server_project/
+├── archive/
 ├── version-finale/
 │   ├── 01-script-generation-bd/     # Database and data generation
 │   └── portes-ouvertes/              # Local Flask open house interface
-├── archive/                           # Archived project files
+├── archive/
+│   └── ...                           # Archived project files
+│   ├── Y-141-Rafael_Melo-*.sql      # SQL scripts
+│   ├── Y-141-Rafael_Melo-*.py       # Python generation scripts
+│   └── *.docx                       # Reports and documentation
 ├── LICENSE
 └── README.md
 ```
@@ -61,8 +66,7 @@ SQL_Server_project/
 
 - **SQL Server** (Express, Developer, or Standard edition)
 - **SQL Server Management Studio (SSMS)** or **Azure Data Studio**
-- **Python 3.8+** with `pyodbc`
-- **ODBC Driver 17 for SQL Server** (for the local open house interface)
+- **Python 3.8+** with `pyodbc` or `pymssql` (for data generation scripts)
 
 ### Installation
 
@@ -74,12 +78,12 @@ SQL_Server_project/
 
 2. **Create the database**
    - Open SSMS and connect to your SQL Server instance.
-   - Run the database creation scripts from the project. The current generation script is located in `version-finale/01-script-generation-bd/`.
+   - Run the SQL scripts located in the `archive/` folder to create the schema and tables.
 
 3. **Generate test data (optional)**
    ```bash
-   python -m pip install pyodbc
-   python version-finale/01-script-generation-bd/Y-141-Rafael_Melo-GenerationBdPortesOuvertes.py
+   pip install pyodbc
+   python archive/Y-141-Rafael_Melo-GenerationBd.py
    ```
 
 4. **Run the queries**
