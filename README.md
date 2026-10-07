@@ -36,7 +36,7 @@ The project is a practical playground for exploring relational database concepts
 | **Python Data Generation** | Scripts that automatically generate realistic test data for the database. |
 | **Query Exercises** | A set of SQL queries covering joins, subqueries, aggregations, and window functions. |
 | **Investigation Scenario** | A fun "find the cheaters" exercise using SQL queries to solve a mystery. |
-| **Open House Project** | A complete database project simulating a school open house event. |
+| **Open House Project** | A complete database project simulating a school open house event, including a local Flask interface for detecting suspicious players. |
 | **Documentation** | Installation guides, admin manuals, and visitor manuals for the open house project. |
 
 <br>
@@ -46,11 +46,11 @@ The project is a practical playground for exploring relational database concepts
 ```text
 SQL_Server_project/
 ├── archive/
-│   ├── version-finale/
-│   │   ├── 01-creation-db/          # Database creation scripts
-│   │   ├── 02-scenario-enquete/     # Investigation scenario files
-│   │   ├── 03-manuels/              # User manuals
-│   │   └── portes-ouvertes/         # Open house project
+├── version-finale/
+│   ├── 01-script-generation-bd/     # Database and data generation
+│   └── portes-ouvertes/              # Local Flask open house interface
+├── archive/
+│   └── ...                           # Archived project files
 │   ├── Y-141-Rafael_Melo-*.sql      # SQL scripts
 │   ├── Y-141-Rafael_Melo-*.py       # Python generation scripts
 │   └── *.docx                       # Reports and documentation
@@ -88,6 +88,19 @@ SQL_Server_project/
 
 4. **Run the queries**
    - Open the query files and execute them in SSMS to explore the data.
+
+5. **Run the Open House interface**
+   - Open `version-finale/portes-ouvertes/`
+   - Install dependencies:
+     `python -m pip install -r requirements.txt`
+   - Start the interface:
+     `python app.py`
+   - Open `http://127.0.0.1:5000` in a browser.
+   - Default SQL Server instance: `./SQLEXPRESS`
+   - Database: `SQL_Server_Project`
+   - ODBC driver: `ODBC Driver 17 for SQL Server`
+   - The interface is read-only and uses parameterized SELECT queries.
+   - Suspicion is calculated with a score based on the selected criteria.
 
 <br>
 
