@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Mission SQL : enquête au cinéma</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<main class="page">
+    <header class="hero">
+        <p class="kicker">PORTES OUVERTES ETML</p>
+        <h1>Mission SQL</h1>
+        <p class="subtitle">Enquête au cinéma</p>
+        <p class="intro">Un festival doit choisir sa programmation. Utilise les indices de la base pour découvrir les tendances du public.</p>
+        <div class="meta"><span>3 défis</span><span>5 à 8 minutes visées</span><span>Pas besoin de connaître SQL</span></div>
+    </header>
+
+    {% if simulation %}
+    <div class="notice simulation" role="status">MODE SIMULATION. Les chiffres affichés sont des exemples. Aucune requête SQL Server réelle n'a fourni ces résultats.</div>
+    {% endif %}
+
+    {% if erreur %}
+    <section class="panel error" role="alert">
+        <h2>Base de données indisponible</h2>
+        <p>{{ erreur }}</p>
+        <p>Un animateur peut vérifier la connexion, puis recharger la page.</p>
+    </section>
+    {% elif dernier_resultat %}
+    <section class="panel">
+        <p class="kicker">RÉSULTAT DU DÉFI</p>
+        <h2>{% if dernier_resultat.correct %}Bonne réponse{% else %}Pas tout à fait{% endif %}</h2>
+        <p>La réponse la plus fréquente est <strong>{{ dernier_resultat.bonne_reponse }}</strong>.</p>
+        <p>Score actuel : <strong>{{ score }} / 3</strong></p>
+        {% if fini %}
+        <p class="finish">Mission terminée. Tu as trouvé {{ score }} réponse(s) sur 3.</p>
+        <p>Les bases de données servent à relier des informations et à répondre à des questions à partir de nombreuses lignes.</p>
+        {% else %}
+        <p>Le défi suivant t'attend.</p>
+        {% endif %}
+        <form action="{{ url_for('index') }}" method="get"><button class="primary" type="submit">{% if fini %}Voir le bilan{% else %}Continuer{% endif %}</button></form>
+    </section>
+    {% elif fini %}
+    <section class="panel">
+        <p class="kicker">MISSION TERMINÉE</p>
+        <h2>Résultat final : {{ score }} / 3</h2>
+        <p>Tu as utilisé des regroupements et des jointures pour répondre à des questions concrètes.</p>
+        <form action="{{ url_for('recommencer') }}" method="post"><button class="primary" type="submit">Nouvelle partie</button></form>
+    </section>
+    {% else %}
+    <section class="progress" aria-label="Progression">
+        <div><span>Défi {{ etape + 1 }} sur 3</span><span>Score : {{ score }}</span></div>
+        <div class="track"><span style="width: {{ ((etape + 1) / 3 * 100)|int }}%"></span></div>
+    </section>
+    <section class="panel">
+        <p class="kicker">DÉFI {{ etape + 1 }}</p>
+        <h2>{{ etapes[etape].titre }}</h2>
+        <p>{{ etapes[etape].explication }}</p>
+        <div class="learning">
+            <strong>Ce que SQL fait ici</strong>
+            <p>{{ etapes[etape].notion }}</p>
+            <code>{{ etapes[etape].requete }}</code>
+        </div>
+        {% if options %}
+        <form action="{{ url_for('repondre') }}" method="post">
+            <fieldset>
+                <legend>Choisis la réponse qui te semble correcte</legend>
+                {% for option in options %}
+                <label class="choice">
+                    <input type="radio" name="choix" value="{{ option.value }}" required>
+                    <span>{{ option.label }}</span>
+                    <small>{{ "{:,}".format(option.total).replace(",", " ") }} réservations</small>
+                </label>
+                {% endfor %}
+            </fieldset>
+            <button class="primary" type="submit">Valider ma réponse</button>
+        </form>
+        {% else %}
+        <p>Aucune donnée à afficher. Vérifie que le script de génération a été exécuté.</p>
+        {% endif %}
+    </section>
+    {% endif %}
+
+    <footer>
+        <p>Les données sont synthétiques. Le mode réel interroge SQL Server sur ce poste.</p>
+        <form action="{{ url_for('recommencer') }}" method="post"><button class="quiet" type="submit">Recommencer la partie</button></form>
+    </footer>
+</main>
+</body>
+</html>

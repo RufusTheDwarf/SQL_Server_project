@@ -1,0 +1,239 @@
+:root {
+    color-scheme: light;
+    font-family: "Segoe UI", Arial, sans-serif;
+    color: #192436;
+    background: #f3f5f8;
+    font-synthesis: none;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #f5f7fb 0%, #e9eef5 100%);
+}
+
+.page {
+    width: min(900px, calc(100% - 32px));
+    margin: 0 auto;
+    padding: 34px 0 24px;
+}
+
+.hero {
+    padding: 30px;
+    border-radius: 20px;
+    color: #ffffff;
+    background: #183d68;
+    box-shadow: 0 14px 34px rgba(24, 61, 104, .16);
+}
+
+.kicker {
+    margin: 0 0 10px;
+    color: #5e7da4;
+    font-size: .75rem;
+    font-weight: 800;
+    letter-spacing: .12em;
+}
+
+.hero .kicker { color: #c7dbf2; }
+
+h1 {
+    margin: 0;
+    font-size: clamp(2.5rem, 7vw, 4.5rem);
+    line-height: 1;
+    letter-spacing: -.04em;
+}
+
+.subtitle {
+    margin: 8px 0 18px;
+    font-size: clamp(1.3rem, 4vw, 2rem);
+    font-weight: 700;
+}
+
+.intro {
+    max-width: 650px;
+    color: #e1eaf5;
+    font-size: 1.08rem;
+    line-height: 1.55;
+}
+
+.meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 22px;
+}
+
+.meta span {
+    padding: 7px 10px;
+    border: 1px solid rgba(255, 255, 255, .28);
+    border-radius: 999px;
+    font-size: .85rem;
+}
+
+.progress, .panel, .notice {
+    margin-top: 18px;
+    padding: 24px;
+    border: 1px solid #dce3ec;
+    border-radius: 18px;
+    background: #ffffff;
+    box-shadow: 0 8px 24px rgba(20, 42, 68, .06);
+}
+
+.progress > div:first-child {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    font-weight: 700;
+}
+
+.track {
+    height: 8px;
+    margin-top: 14px;
+    overflow: hidden;
+    border-radius: 99px;
+    background: #e7edf5;
+}
+
+.track span {
+    display: block;
+    height: 100%;
+    border-radius: inherit;
+    background: #2f7a61;
+}
+
+h2 {
+    margin: 0 0 12px;
+    font-size: clamp(1.4rem, 4vw, 2rem);
+}
+
+.panel > p {
+    line-height: 1.55;
+}
+
+.learning {
+    margin: 22px 0;
+    padding: 18px;
+    border-left: 4px solid #4d79a8;
+    border-radius: 8px;
+    background: #f2f6fb;
+}
+
+.learning p { margin: 7px 0 12px; }
+
+code {
+    display: block;
+    overflow-wrap: anywhere;
+    color: #254c76;
+    font-size: .9rem;
+    line-height: 1.5;
+}
+
+fieldset {
+    min-width: 0;
+    margin: 0 0 20px;
+    padding: 0;
+    border: 0;
+}
+
+legend {
+    margin-bottom: 12px;
+    font-weight: 750;
+}
+
+.choice {
+    display: grid;
+    grid-template-columns: 22px minmax(100px, 1fr) auto;
+    align-items: center;
+    gap: 12px;
+    margin: 8px 0;
+    padding: 14px;
+    border: 1px solid #dce3ec;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+.choice:has(input:checked) {
+    border-color: #2f7a61;
+    background: #eff8f3;
+}
+
+.choice input {
+    width: 18px;
+    height: 18px;
+    accent-color: #2f7a61;
+}
+
+.choice span { font-weight: 700; }
+.choice small { color: #5f6d7d; text-align: right; }
+
+button {
+    min-height: 46px;
+    padding: 12px 18px;
+    border: 0;
+    border-radius: 10px;
+    font: inherit;
+    font-weight: 750;
+    cursor: pointer;
+}
+
+button:focus-visible, input:focus-visible {
+    outline: 3px solid #e1a72b;
+    outline-offset: 3px;
+}
+
+.primary {
+    width: 100%;
+    color: #ffffff;
+    background: #235c49;
+}
+
+.primary:hover { background: #194735; }
+
+.quiet {
+    padding: 8px 0;
+    color: #526276;
+    background: transparent;
+    text-decoration: underline;
+}
+
+.notice.simulation {
+    color: #714b00;
+    border-color: #e8ca7b;
+    background: #fff8df;
+    font-weight: 700;
+    line-height: 1.5;
+}
+
+.error {
+    border-color: #dba5a5;
+    background: #fff6f6;
+}
+
+.finish {
+    padding: 14px;
+    border-radius: 10px;
+    background: #eff8f3;
+    font-weight: 700;
+}
+
+footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 18px;
+    color: #667488;
+    font-size: .85rem;
+}
+
+footer p { line-height: 1.5; }
+
+@media (max-width: 620px) {
+    .page { width: min(100% - 20px, 900px); padding-top: 10px; }
+    .hero, .panel, .progress, .notice { padding: 20px; border-radius: 14px; }
+    .choice { grid-template-columns: 22px 1fr; }
+    .choice small { grid-column: 2; text-align: left; }
+    footer { align-items: flex-start; flex-direction: column; }
+}
