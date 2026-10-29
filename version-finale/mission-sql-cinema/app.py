@@ -44,6 +44,8 @@ DONNEES_DEMO = [
      {"label": "Jeudi", "value": "5", "total": 1430000}]
 ]
 
+_CACHE_OPTIONS = {}
+
 JOURS = {
     1: "Dimanche",
     2: "Lundi",
@@ -125,13 +127,19 @@ def lire_options(etape):
 
 
 def charger_options(etape):
+    if etape in _CACHE_OPTIONS:
+        return _CACHE_OPTIONS[etape]
+
     try:
-        return lire_options(etape), False
+        resultat = (lire_options(etape), False)
     except pyodbc.Error:
         app.logger.exception("La requête de l'étape %s a échoué.", etape)
-        if os.getenv("DEMO_MODE") == "1":
-            return DONNEES_DEMO[etape], True
-        raise
+        if os.getenv("DEMO_MODE") != "1":
+            raise
+        resultat = (DONNEES_DEMO[etape], True)
+
+    _CACHE_OPTIONS[etape] = resultat
+    return resultat
 
 
 @app.route("/", methods=["GET"])

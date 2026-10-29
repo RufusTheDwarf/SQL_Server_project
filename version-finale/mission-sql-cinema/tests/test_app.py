@@ -12,6 +12,16 @@ class MissionAppTests(unittest.TestCase):
         mission_app.app.config.update(TESTING=True, SECRET_KEY="test-secret")
         self.client = mission_app.app.test_client()
 
+
+    def test_challenge_options_are_cached_after_first_load(self):
+        mission_app._CACHE_OPTIONS.clear()
+        with patch.object(mission_app, "lire_options", return_value=mission_app.DONNEES_DEMO[0]) as reader:
+            first = mission_app.charger_options(0)
+            second = mission_app.charger_options(0)
+        self.assertEqual(first, second)
+        reader.assert_called_once_with(0)
+        mission_app._CACHE_OPTIONS.clear()
+
     def test_homepage_shows_first_challenge(self):
         with patch.object(mission_app, "charger_options", return_value=(mission_app.DONNEES_DEMO[0], True)):
             response = self.client.get("/")
