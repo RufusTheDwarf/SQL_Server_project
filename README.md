@@ -24,14 +24,14 @@ L'application utilise Flask et pyodbc. Elle se lance localement sur `http://127.
 
 ## Documentation
 
-- [Audit du dépôt](version-finale/mission-sql-cinema/docs/01-audit.md)
-- [Fiche de validation du scénario](version-finale/mission-sql-cinema/docs/02-validation-scenario.md)
-- [Manuel d'installation](version-finale/mission-sql-cinema/docs/03-manuel-installation.md)
-- [Manuel de formation et d'animation](version-finale/mission-sql-cinema/docs/04-manuel-animation.md)
-- [Rapport de projet](version-finale/mission-sql-cinema/docs/05-rapport-projet.md)
-- [Modèle de journal de travail](version-finale/mission-sql-cinema/docs/06-journal-travail.md)
-- [Planification sur 32 périodes](version-finale/mission-sql-cinema/docs/07-plan-32-periodes.md)
-- [Matrice de conformité](version-finale/mission-sql-cinema/docs/08-matrice-conformite.md)
+- [Audit du dépôt](version-finale/mission-sql-cinema/docs/01-audit-etat-initial.md)
+- [Fiche de validation du scénario](version-finale/mission-sql-cinema/docs/02-fiche-validation-scenario.md)
+- [Manuel d'installation](version-finale/mission-sql-cinema/docs/04-manuel-installation.md)
+- [Manuel de formation et d'animation](version-finale/mission-sql-cinema/docs/05-manuel-animation.md)
+- [Rapport de projet](version-finale/mission-sql-cinema/docs/06-rapport-projet.md)
+- [Modèle de journal de travail](version-finale/mission-sql-cinema/docs/07-journal-travail-modele.md)
+- [Planification sur 32 périodes](version-finale/mission-sql-cinema/docs/08-plan-32-periodes.md)
+- [Matrice de conformité](version-finale/mission-sql-cinema/docs/03-matrice-conformite.md)
 - [Affiche imprimable HTML](version-finale/mission-sql-cinema/docs/12-affiche.html)
 - [Consignes visiteurs HTML](version-finale/mission-sql-cinema/docs/13-document-visiteur.html)
 

@@ -1,24 +1,33 @@
 # Matrice de conformité au cahier des charges
 
-Les statuts ci-dessous reflètent les preuves présentes dans le dépôt au moment de la dernière mise à jour. Ils ne remplacent pas une validation sur le poste cible.
+Les statuts ci-dessous décrivent les preuves présentes dans la branche de travail. Ils ne remplacent pas les vérifications sur un SQL Server réel ni la validation de l'enseignant.
 
-| Exigence | Statut | Preuve | Vérification restante |
-|---|---|---|---|
-| Activité ludique pour les Portes ouvertes | Partiellement conforme | Fiche de scénario et interface | Validation enseignant et essai avec visiteurs |
-| Thème accessible | Partiellement conforme | Mission cinéma | Vérifier compréhension sans aide |
-| Base SQL Server relationnelle | Partiellement conforme | `sql/01_schema.sql` | Exécuter le script sur SQL Server |
-| Au moins 10 millions d'enregistrements | Non vérifié | `sql/02_generate_reservations.sql` | Générer puis contrôler avec `sql/03_verify_volume.sql` |
-| Activité de 5 à 8 minutes | Non vérifié | Déroulement proposé dans la fiche | Chronométrer plusieurs essais |
-| Lien avec les notions ICT | Partiellement conforme | Requêtes, défis et fiche de validation | Confirmation de l'enseignant et lien avec le cours |
-| Référence au livre de J. Poirier | Non vérifié | Référence déclarée dans le cahier des charges | Vérifier les notions dans l'ouvrage |
-| Installation sur un autre PC | Partiellement conforme | README et variables de configuration | Test depuis un dossier propre sur le PC cible |
-| Manuel d'installation | Partiellement conforme | `docs/04-manuel-installation.md` | Vérification pratique par un autre élève |
-| Manuel d'animation | Partiellement conforme | `docs/05-manuel-animation.md` | Compléter les réponses attendues après exécution SQL |
-| Documents visiteurs Word et PDF | Partiellement conforme | Livrables exportés dans la conversation, source HTML dans `docs/13-document-visiteur.html` | Ajouter les exports au paquet de livraison final et vérifier l'impression |
-| Rapport de projet | Partiellement conforme | `docs/06-rapport-projet.md` et export de travail | Actualiser après tests réels |
-| Affiche éditable et PDF | Partiellement conforme | Source HTML dans `docs/12-affiche.html`, fichiers éditables et PDF exportés séparément | Vérifier l'impression et intégrer les fichiers au paquet final |
-| Journal de travail fidèle | Partiellement conforme | `docs/07-journal-travail-modele.md` | Reconstruire à partir de traces puis faire vérifier |
-| Tests unitaires | Conforme pour la logique testée | Workflow GitHub Actions et `tests/test_app.py` | Ajouter d'autres cas au besoin |
-| Tests SQL d'intégration | Non vérifié | `tests/test_sql_integration.py` | Exécuter sur SQL Server avec `RUN_SQL_INTEGRATION=1` |
-| Sécurité et paramètres | Partiellement conforme | Formulaire à choix bornés, pas de SQL libre, secret de session configurable | Audit complet de configuration et des droits SQL |
-| Mesure du temps et de l'espace | Non vérifié | Script de génération et requête de taille | Conserver les mesures réelles |
+| Exigence | Statut | Preuve ou vérification restante |
+| --- | --- | --- |
+| Activité ludique sur un thème connu | Partiellement conforme | `docs/02-validation-scenario.md`; validation enseignant à obtenir |
+| Lien avec les cours ICT | Partiellement conforme | Notions décrites dans la fiche de scénario; correspondance avec le cours et le livre à confirmer |
+| Dix millions d'enregistrements réels | Non vérifié | `sql/02_generate_reservations.sql` et `sql/03_verify_volume.sql`; exécuter et conserver les résultats SQL |
+| Durée de cinq à huit minutes | Non vérifié | Chronométrer plusieurs visiteurs, animateur et remise à zéro compris |
+| Requêtes SQL réelles | Partiellement conforme | `app.py`; tester les trois requêtes avec SQL Server installé |
+| Installation sur un autre PC | Non vérifié | Suivre le manuel et réaliser un essai sur un poste propre |
+| Manuel d'installation | Partiellement conforme | `docs/03-manuel-installation.md`; vérifier les étapes sur le PC cible |
+| Manuel d'animation | Partiellement conforme | `docs/04-manuel-animation.md`; faire relire et tester |
+| Documents visiteurs Word et PDF | Partiellement conforme | Fichiers de livraison générés séparément; vérifier leur intégration à la livraison finale |
+| Rapport de raisonnement | Partiellement conforme | `docs/05-rapport-projet.md`; actualiser après mesures réelles |
+| Affiche promotionnelle | Partiellement conforme | `docs/12-affiche.html`; ouvrir et imprimer en PDF, vérifier sur imprimante |
+| Journal quotidien honnête | Partiellement conforme | `docs/06-journal-travail.md`; les lignes réelles doivent être complétées par les collaborateurs |
+| Planification de 32 périodes | Conforme comme plan | `docs/07-plan-32-periodes.md`; ne prouve pas que les périodes ont été réalisées |
+| Tests unitaires | Conforme pour le périmètre CI | Workflow GitHub Actions réussi sur le commit observé |
+| Tests SQL Server et performances | Non vérifié | Aucun serveur SQL Server n'a été exécuté dans cet environnement |
+| Sécurité des requêtes et secrets | Partiellement conforme | Les choix de réponses sont comparés aux options retournées; revue locale et configuration du poste restent nécessaires |
+| Mode simulation clairement identifié | Partiellement conforme | Bannière visible; vérifier les consignes aux animateurs |
+| Validation par l'enseignant | Non vérifié | Décision écrite à ajouter après validation réelle |
+
+## Preuves à conserver avant de déclarer le projet terminé
+
+1. Capture ou export des résultats de `03_verify_volume.sql`.
+2. Temps de génération et espace disque mesurés.
+3. Résultats des tests d'intégration avec SQL Server.
+4. Mesures chronométrées du parcours.
+5. Résultat de l'installation sur le PC cible.
+6. Décision de validation du scénario par l'enseignant.
