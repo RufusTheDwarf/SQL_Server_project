@@ -1,193 +1,37 @@
-<div align="center">
+# Projet SQL Server pour les Portes ouvertes de l'ETML
 
-# 🗄️ SQL Server Project
+Ce dépôt contient des travaux SQL Server, des scripts de génération de données et des documents de projet. La refonte pédagogique est développée dans une branche distincte afin de préserver les travaux antérieurs.
 
-**A hands-on training project focused on SQL Server: schema design, queries, and exercises.**
+## Activité en refonte
 
-[![SQL Server](https://img.shields.io/badge/SQL%20Server-CC2927?style=flat&logo=microsoftsqlserver&logoColor=white)](#)
-[![Python](https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=white)](#)
-[![T-SQL](https://img.shields.io/badge/T--SQL-336791?style=flat&logo=microsoftsqlserver&logoColor=white)](#)
-[![License](https://img.shields.io/badge/License-MIT-lightgrey?style=flat)](#)
+La nouvelle piste est **Mission SQL : enquête au cinéma**. Le visiteur répond à trois questions à partir de données de réservations. L'application doit montrer comment SQL relie des tables, regroupe des lignes et trie des résultats.
 
-<br>
+Statut : prototype ajouté, scénario à faire valider par l'enseignant. Le fonctionnement avec SQL Server, les dix millions de lignes et la durée de 5 à 8 minutes restent à vérifier sur le poste cible.
 
-[![Stars](https://img.shields.io/github/stars/RufusTheDwarf/SQL_Server_project?style=flat&color=yellow)](https://github.com/RufusTheDwarf/SQL_Server_project/stargazers)
-[![Forks](https://img.shields.io/github/forks/RufusTheDwarf/SQL_Server_project?style=flat&color=blue)](https://github.com/RufusTheDwarf/SQL_Server_project/forks)
-[![Issues](https://img.shields.io/github/issues/RufusTheDwarf/SQL_Server_project?style=flat&color=red)](https://github.com/RufusTheDwarf/SQL_Server_project/issues)
-[![Last Commit](https://img.shields.io/github/last-commit/RufusTheDwarf/SQL_Server_project?style=flat&color=orange)](https://github.com/RufusTheDwarf/SQL_Server_project/commits/main)
+## Structure utile
 
-</div>
+- `version-finale/mission-sql-cinema/` : nouvelle application, scripts SQL, tests et documentation.
+- `version-finale/portes-ouvertes/` : application précédente de détection de joueurs suspects.
+- `version-finale/01-script-generation-bd/` : ancien générateur de données.
+- `version-finale/02-scenario-enquete/` : anciens exercices d'enquête.
+- `version-finale/03-manuels/` et `version-finale/04-rapport/` : documents antérieurs.
+- `archive/` : versions historiques conservées pour référence.
+- `E-P_DB-PréparationPO-CDC-v26.pdf` : cahier des charges fourni.
 
----
+## Lancer le prototype cinéma
 
-## 📖 Overview
+Consulter [le README de l'activité](version-finale/mission-sql-cinema/README.md). L'application utilise Flask et pyodbc, et fonctionne en local. SQL Server est requis pour les résultats réels. Le mode simulation est explicitement signalé et ne doit pas être utilisé pour prétendre à une exécution SQL.
 
-**SQL Server Project** is a personal training repository dedicated to mastering **SQL Server** and **T-SQL**. It contains a collection of exercises, database schemas, and Python scripts designed to generate test data and automate database creation.
+## Vérifications
 
-The project is a practical playground for exploring relational database concepts, from basic table creation to advanced querying and data manipulation. It is constantly evolving as new exercises and scenarios are added.
+Les tests unitaires sont dans `version-finale/mission-sql-cinema/tests/`. Les scripts de création, génération et contrôle des volumes sont dans `version-finale/mission-sql-cinema/sql/`.
 
-<br>
+Aucune preuve d'une exécution SQL Server n'est fournie par le dépôt à ce stade. Il faut exécuter les scripts, conserver les résultats de contrôle et mesurer le temps et l'espace réellement utilisés.
 
-## ✨ Features
+## Livrables attendus
 
-| Feature | Description |
-|---|---|
-| **Database Schema Design** | Complete T-SQL scripts to create databases, tables, constraints, and relationships. |
-| **Python Data Generation** | Scripts that automatically generate realistic test data for the database. |
-| **Query Exercises** | A set of SQL queries covering joins, subqueries, aggregations, and window functions. |
-| **Investigation Scenario** | A fun "find the cheaters" exercise using SQL queries to solve a mystery. |
-| **Open House Project** | A complete database project simulating a school open house event, including a local Flask interface for detecting suspicious players. |
-| **Documentation** | Installation guides, admin manuals, and visitor manuals for the open house project. |
+Les documents d'installation et d'animation, les documents visiteurs Word et PDF, le rapport actualisé, l'affiche et le journal de travail doivent être finalisés après validation du scénario et essais réels. Le journal ne doit contenir que des activités et durées vérifiables.
 
-<br>
+## Référence pédagogique
 
-## 🗂️ Project Structure
-
-```text
-SQL_Server_project/
-├── archive/
-├── version-finale/
-│   ├── 01-script-generation-bd/     # Database and data generation
-│   └── portes-ouvertes/              # Local Flask open house interface
-├── archive/
-│   └── ...                           # Archived project files
-│   ├── Y-141-Rafael_Melo-*.sql      # SQL scripts
-│   ├── Y-141-Rafael_Melo-*.py       # Python generation scripts
-│   └── *.docx                       # Reports and documentation
-├── LICENSE
-└── README.md
-```
-
-<br>
-
-## 🚀 Getting Started
-
-### Prerequisites
-
-- **SQL Server** (Express, Developer, or Standard edition)
-- **SQL Server Management Studio (SSMS)** or **Azure Data Studio**
-- **Python 3.8+** with `pyodbc` or `pymssql` (for data generation scripts)
-
-### Installation
-
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/RufusTheDwarf/SQL_Server_project.git
-   cd SQL_Server_project
-   ```
-
-2. **Create the database**
-   - Open SSMS and connect to your SQL Server instance.
-   - Run the SQL scripts located in the `archive/` folder to create the schema and tables.
-
-3. **Generate test data (optional)**
-   ```bash
-   pip install pyodbc
-   python archive/Y-141-Rafael_Melo-GenerationBd.py
-   ```
-
-4. **Run the queries**
-   - Open the query files and execute them in SSMS to explore the data.
-
-5. **Run the Open House interface**
-   - Open `version-finale/portes-ouvertes/`
-   - Install dependencies:
-     `python -m pip install -r requirements.txt`
-   - Start the interface:
-     `python app.py`
-   - Open `http://127.0.0.1:5000` in a browser.
-   - Default SQL Server instance: `./SQLEXPRESS`
-   - Database: `SQL_Server_Project`
-   - ODBC driver: `ODBC Driver 17 for SQL Server`
-   - The interface is read-only and uses parameterized SELECT queries.
-   - Suspicion is calculated with a score based on the selected criteria.
-
-<br>
-
-## 🛠️ Technologies
-
-| Category | Technology |
-|---|---|
-| **Database** | Microsoft SQL Server |
-| **Query Language** | T-SQL |
-| **Scripting** | Python 3 |
-| **Tools** | SSMS, Azure Data Studio, Git |
-
-<br>
-
-## 📚 What You Will Find
-
-- **DDL Scripts** : `CREATE DATABASE`, `CREATE TABLE`, `ALTER TABLE`, and constraint definitions.
-- **DML Scripts** : `INSERT`, `UPDATE`, `DELETE`, and `MERGE` statements.
-- **Query Exercises** : `SELECT` with joins, subqueries, `GROUP BY`, `HAVING`, and window functions.
-- **Python Automation** : Scripts that connect to SQL Server and generate test data.
-- **Scenarios** : Real-world inspired exercises like the "cheater investigation" and the "open house" database.
-
-<br>
-
-## 🤝 Contributing
-
-Contributions are welcome.
-
-1. Fork the repository.
-2. Create a branch:
-   ```bash
-   git checkout -b feature/my-feature
-   ```
-3. Commit your changes:
-   ```bash
-   git add .
-   git commit -m "Add my feature"
-   ```
-4. Push the branch:
-   ```bash
-   git push origin feature/my-feature
-   ```
-5. Open a Pull Request.
-
-<br>
-
-## 📄 License
-
-This project is licensed under the **MIT License**. See the `LICENSE` file for details.
-
----
-
-<div align="center">
-
-### 👤 Author
-
-**RufusTheDwarf**
-
-[![GitHub](https://img.shields.io/badge/GitHub-RufusTheDwarf-181717?style=flat&logo=github&logoColor=white)](https://github.com/RufusTheDwarf)
-[![Repository](https://img.shields.io/badge/Repo-SQL__Server__project-2ea44f?style=flat&logo=git&logoColor=white)](https://github.com/RufusTheDwarf/SQL_Server_project)
-
-<br>
-
-### 💖 Acknowledgements
-
-- The **SQL Server community** for the endless documentation and resources.
-- **Microsoft** for SQL Server and the free Developer edition.
-- Everyone who shares SQL tips and tricks online.
-
-<br>
-
-### ⭐ Show Your Support
-
-If this project helped you learn something new, consider giving it a star.
-
-[![Star this repo](https://img.shields.io/badge/⭐_Star_this_repo-yellow?style=flat)](https://github.com/RufusTheDwarf/SQL_Server_project/stargazers)
-[![Report an issue](https://img.shields.io/badge/🐛_Report_an_issue-red?style=flat)](https://github.com/RufusTheDwarf/SQL_Server_project/issues)
-[![Fork this repo](https://img.shields.io/badge/🍴_Fork_this_repo-blue?style=flat)](https://github.com/RufusTheDwarf/SQL_Server_project/fork)
-
-<br>
-
----
-
-<sub>Made with ❤️ and a lot of SQL by **RufusTheDwarf** · Licensed under MIT · © 2026</sub>
-
-<br>
-
-*"In SQL we trust."* 🗄️
-
-</div>
+Le cahier des charges demande de s'appuyer sur le livre *SQL Server 2022* de J. Poirier. Les chapitres et pages ne sont pas cités ici car l'ouvrage n'a pas été consulté dans les ressources accessibles. Les notions exactes doivent être confirmées avec l'enseignant.

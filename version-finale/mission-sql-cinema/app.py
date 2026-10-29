@@ -3,7 +3,7 @@ from flask import Flask, render_template, request, session, redirect, url_for
 import pyodbc
 
 app = Flask(__name__)
-app.secret_key = os.getenv("FLASK_SECRET_KEY", "local-demo-change-this-key")
+app.secret_key = os.getenv("FLASK_SECRET_KEY") or os.urandom(32)
 app.config["SESSION_COOKIE_HTTPONLY"] = True
 app.config["SESSION_COOKIE_SAMESITE"] = "Lax"
 
@@ -29,10 +29,10 @@ ETAPES = [
 ]
 
 DONNEES_DEMO = [
-    [{"label": "Action", "value": "Action", "total": 1780000},
-     {"label": "Science-fiction", "value": "Science-fiction", "total": 1650000},
-     {"label": "Comédie", "value": "Comédie", "total": 1510000},
-     {"label": "Mystère", "value": "Mystère", "total": 1420000}],
+    [{"label": "Action", "value": "Action", "total": 2780000},
+     {"label": "Science-fiction", "value": "Science-fiction", "total": 2650000},
+     {"label": "Comédie", "value": "Comédie", "total": 2510000},
+     {"label": "Mystère", "value": "Mystère", "total": 2420000}],
     [{"label": "Cinéma du Centre", "value": "1", "total": 2300000},
      {"label": "Le Grand Écran", "value": "2", "total": 2180000},
      {"label": "Riviera Films", "value": "3", "total": 2050000},
@@ -65,7 +65,11 @@ def get_connection():
         "Trusted_Connection=yes;"
         "TrustServerCertificate=yes;"
     )
-    return pyodbc.connect(connection_string, timeout=5)
+    connection = pyodbc.connect(connection_string, timeout=5)
+    cursor = connection.cursor()
+    cursor.execute("SET DATEFIRST 7;")
+    cursor.close()
+    return connection
 
 
 def lire_options(etape):
