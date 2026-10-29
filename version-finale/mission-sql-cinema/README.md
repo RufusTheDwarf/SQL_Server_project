@@ -13,9 +13,9 @@ Le parcours cible est de 5 à 8 minutes. Cette durée reste à mesurer avec des 
 - `app.py` : application Flask locale.
 - `templates/index.html` : interface.
 - `static/style.css` : mise en page.
-- `sql/01_schema.sql` : création des tables et des données de référence.
+- `sql/00_create_database.sql` : création de la base vide.\n- `sql/01_schema.sql` : création des tables et des données de référence.
 - `sql/02_generate_reservations.sql` : génération de dix millions de réservations synthétiques.
-- `sql/03_verify_volume.sql` : contrôle des volumes et des relations.
+- `sql/03_verify_volume.sql` : contrôle des volumes et des relations.\n- `sql/04_role_lecture.sql` : préparation d'un rôle de lecture seule à attribuer au compte Windows par un administrateur.
 - `tests/` : tests unitaires sans serveur SQL.
 - `docs/` : audit, fiche de validation, manuels, rapport, journal et conformité.
 
