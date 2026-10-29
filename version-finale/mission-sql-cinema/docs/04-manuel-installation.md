@@ -64,7 +64,7 @@ python app.py
 
 La bannière « MODE SIMULATION » doit rester visible. Ce mode ne prouve ni la connexion SQL ni la validité des résultats. Pour revenir au mode réel, exécuter `Remove-Item Env:DEMO_MODE` puis relancer l'application.
 
-## 6. Contrôles avant ouverture
+## 6. Compte de lecture seule\n\nSi l'application doit utiliser un compte dédié, exécuter `sql/04_role_lecture.sql` avec un compte administrateur. Ce script crée un rôle et accorde uniquement SELECT sur les tables de l'activité. Un administrateur doit ensuite créer ou sélectionner le principal Windows approprié et l'ajouter au rôle `mission_cinema_lecture`. Les commandes exactes dépendent du domaine et du nom de compte du PC cible.\n\n## 7. Contrôles avant ouverture
 
 - Exécuter `03_verify_volume.sql` et conserver les résultats.
 - Vérifier que le total des réservations atteint au moins 10 000 000.

@@ -10,13 +10,13 @@ Les statuts ci-dessous décrivent les preuves présentes dans la branche de trav
 | Durée de cinq à huit minutes | Non vérifié | Chronométrer plusieurs visiteurs, animateur et remise à zéro compris |
 | Requêtes SQL réelles | Partiellement conforme | `app.py`; tester les trois requêtes avec SQL Server installé |
 | Installation sur un autre PC | Non vérifié | Suivre le manuel et réaliser un essai sur un poste propre |
-| Manuel d'installation | Partiellement conforme | `docs/03-manuel-installation.md`; vérifier les étapes sur le PC cible |
-| Manuel d'animation | Partiellement conforme | `docs/04-manuel-animation.md`; faire relire et tester |
+| Manuel d'installation | Partiellement conforme | `docs/04-manuel-installation.md`; vérifier les étapes sur le PC cible |
+| Manuel d'animation | Partiellement conforme | `docs/05-manuel-animation.md`; faire relire et tester |
 | Documents visiteurs Word et PDF | Partiellement conforme | Fichiers de livraison générés séparément; vérifier leur intégration à la livraison finale |
-| Rapport de raisonnement | Partiellement conforme | `docs/05-rapport-projet.md`; actualiser après mesures réelles |
+| Rapport de raisonnement | Partiellement conforme | `docs/06-rapport-projet.md`; actualiser après mesures réelles |
 | Affiche promotionnelle | Partiellement conforme | `docs/12-affiche.html`; ouvrir et imprimer en PDF, vérifier sur imprimante |
-| Journal quotidien honnête | Partiellement conforme | `docs/06-journal-travail.md`; les lignes réelles doivent être complétées par les collaborateurs |
-| Planification de 32 périodes | Conforme comme plan | `docs/07-plan-32-periodes.md`; ne prouve pas que les périodes ont été réalisées |
+| Journal quotidien honnête | Partiellement conforme | `docs/07-journal-travail-modele.md`; les lignes réelles doivent être complétées par les collaborateurs |
+| Planification de 32 périodes | Conforme comme plan | `docs/08-plan-32-periodes.md`; ne prouve pas que les périodes ont été réalisées |
 | Tests unitaires | Conforme pour le périmètre CI | Workflow GitHub Actions réussi sur le commit observé |
 | Tests SQL Server et performances | Non vérifié | Aucun serveur SQL Server n'a été exécuté dans cet environnement |
 | Sécurité des requêtes et secrets | Partiellement conforme | Les choix de réponses sont comparés aux options retournées; revue locale et configuration du poste restent nécessaires |
