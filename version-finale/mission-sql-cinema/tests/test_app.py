@@ -19,6 +19,12 @@ class MissionAppTests(unittest.TestCase):
         self.assertIn("Quel genre attire le plus de réservations".encode(), response.data)
         self.assertIn("MODE SIMULATION".encode(), response.data)
 
+    def test_connection_error_is_explained(self):
+        with patch.object(mission_app, "charger_options", side_effect=mission_app.pyodbc.Error("connection failed")):
+            response = self.client.get("/")
+        self.assertEqual(response.status_code, 200)
+        self.assertIn("Connexion à SQL Server impossible".encode(), response.data)
+
     def test_correct_answer_increases_score(self):
         with self.client.session_transaction() as state:
             state["etape"] = 0
@@ -40,6 +46,16 @@ class MissionAppTests(unittest.TestCase):
         with self.client.session_transaction() as state:
             self.assertEqual(state["score"], 0)
             self.assertFalse(state["dernier_resultat"]["correct"])
+
+    def test_empty_results_are_handled(self):
+        with self.client.session_transaction() as state:
+            state["etape"] = 0
+            state["score"] = 0
+        with patch.object(mission_app, "charger_options", return_value=([], False)):
+            self.client.post("/repondre", data={"choix": "Action"})
+        with self.client.session_transaction() as state:
+            self.assertEqual(state["score"], 0)
+            self.assertEqual(state["dernier_resultat"]["bonne_reponse"], "Aucun résultat")
 
     def test_untrusted_value_is_only_compared_to_options(self):
         payload = "'; DROP TABLE dbo.Reservations;--"

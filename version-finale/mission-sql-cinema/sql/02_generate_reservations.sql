@@ -8,6 +8,15 @@ GO
 DECLARE @NombreCible BIGINT = 10000000;
 DECLARE @DejaPresent BIGINT = (SELECT COUNT_BIG(*) FROM dbo.Reservations);
 
+IF @DejaPresent > 0
+BEGIN
+    IF (SELECT MIN(reservation_id) FROM dbo.Reservations) <> 1
+       OR (SELECT MAX(reservation_id) FROM dbo.Reservations) <> @DejaPresent
+    BEGIN
+        THROW 51001, 'La table Reservations ne contient pas une suite continue de 1 a son nombre de lignes. Corrigez les donnees avant de reprendre.', 1;
+    END;
+END;
+
 IF @DejaPresent >= @NombreCible
 BEGIN
     IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE object_id = OBJECT_ID('dbo.Reservations') AND name = 'IX_Reservations_Seance')
@@ -16,11 +25,6 @@ BEGIN
         CREATE INDEX IX_Reservations_Date ON dbo.Reservations(date_reservation);
     PRINT CONCAT('Aucune insertion : ', @DejaPresent, ' réservations sont déjà présentes.');
     RETURN;
-END;
-
-IF @DejaPresent > 0
-BEGIN
-    THROW 51001, 'La table contient déjà des réservations mais reste sous la cible. Vérifiez les données avant de relancer le générateur.', 1;
 END;
 
 DECLARE @Debut DATETIME2(0) = SYSDATETIME();
@@ -42,14 +46,21 @@ Numeros AS (
 INSERT INTO dbo.Reservations WITH (TABLOCK)
     (reservation_id, seance_id, client_id, date_reservation, places, montant)
 SELECT
-    n,
-    CONVERT(INT, ((n - 1) % 1000) + 1),
-    CONVERT(INT, ((n - 1) % 100000) + 1),
-    DATEADD(MINUTE, CONVERT(INT, n % 129600), CONVERT(DATETIME2(0), '2026-08-01')),
-    CONVERT(TINYINT, ((n - 1) % 4) + 1),
-    CONVERT(DECIMAL(7,2), (((n - 1) % 4) + 1) * (12.00 + (((n - 1) % 1000) % 5) * 1.50))
-FROM Numeros
-WHERE n <= @NombreCible
+    n.n,
+    s.seance_id,
+    CONVERT(INT, ((n.n - 1) % 100000) + 1),
+    DATEADD(MINUTE, -CONVERT(INT, n.n % 43200), s.debut),
+    q.places,
+    CONVERT(DECIMAL(7,2), q.places * s.prix)
+FROM Numeros AS n
+CROSS APPLY (
+    SELECT
+        CONVERT(INT, ((n.n - 1) % 1000) + 1) AS seance_id,
+        CONVERT(TINYINT, ((n.n - 1) % 4) + 1) AS places
+) AS q
+INNER JOIN dbo.Seances AS s ON s.seance_id = q.seance_id
+WHERE n.n > @DejaPresent
+  AND n.n <= @NombreCible
 OPTION (MAXDOP 2);
 
 IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE object_id = OBJECT_ID('dbo.Reservations') AND name = 'IX_Reservations_Seance')
