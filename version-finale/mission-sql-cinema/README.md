@@ -17,15 +17,15 @@ Le parcours cible est de 5 à 8 minutes. Cette durée reste à mesurer avec des 
 - `sql/02_generate_reservations.sql` : génération de dix millions de réservations synthétiques.
 - `sql/03_verify_volume.sql` : contrôle des volumes et des relations.
 - `tests/` : tests unitaires sans serveur SQL.
-- `docs/` : audit, fiche de validation, animation et conformité.
+- `docs/` : audit, fiche de validation, manuels, rapport, journal et conformité.
 
-## Pré requis
+## Prérequis
 
 - Windows 10 ou 11.
 - SQL Server 2019 ou plus récent, à confirmer sur le poste cible.
 - Python 3.10 ou plus récent.
-- Pilote Microsoft ODBC Driver 17 ou 18 for SQL Server.
-- Environ 3 Go d'espace libre au minimum pour les fichiers de base, avec une marge supplémentaire recommandée. La taille réelle doit être mesurée sur le poste cible.
+- Pilote Microsoft ODBC Driver 18 for SQL Server.
+- Plusieurs Go d'espace disque libre et une marge supplémentaire. La taille réelle doit être mesurée sur le poste cible.
 
 ## Installation
 
@@ -47,7 +47,7 @@ Le parcours cible est de 5 à 8 minutes. Cette durée reste à mesurer avec des 
    ```
 7. Lancer `python app.py` et ouvrir `http://127.0.0.1:5000`.
 
-Le nom du serveur et le pilote doivent correspondre à l'installation locale. Aucun mot de passe n'est enregistré dans le dépôt.
+Le nom du serveur et le pilote doivent correspondre à l'installation locale. Aucun mot de passe SQL n'est enregistré dans le dépôt.
 
 ## Mode de simulation
 

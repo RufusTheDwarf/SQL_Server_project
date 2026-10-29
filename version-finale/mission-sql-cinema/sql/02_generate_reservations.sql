@@ -10,6 +10,10 @@ DECLARE @DejaPresent BIGINT = (SELECT COUNT_BIG(*) FROM dbo.Reservations);
 
 IF @DejaPresent >= @NombreCible
 BEGIN
+    IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE object_id = OBJECT_ID('dbo.Reservations') AND name = 'IX_Reservations_Seance')
+        CREATE INDEX IX_Reservations_Seance ON dbo.Reservations(seance_id);
+    IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE object_id = OBJECT_ID('dbo.Reservations') AND name = 'IX_Reservations_Date')
+        CREATE INDEX IX_Reservations_Date ON dbo.Reservations(date_reservation);
     PRINT CONCAT('Aucune insertion : ', @DejaPresent, ' réservations sont déjà présentes.');
     RETURN;
 END;
@@ -47,6 +51,11 @@ SELECT
 FROM Numeros
 WHERE n <= @NombreCible
 OPTION (MAXDOP 2);
+
+IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE object_id = OBJECT_ID('dbo.Reservations') AND name = 'IX_Reservations_Seance')
+    CREATE INDEX IX_Reservations_Seance ON dbo.Reservations(seance_id);
+IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE object_id = OBJECT_ID('dbo.Reservations') AND name = 'IX_Reservations_Date')
+    CREATE INDEX IX_Reservations_Date ON dbo.Reservations(date_reservation);
 
 DECLARE @Fin DATETIME2(0) = SYSDATETIME();
 SELECT
