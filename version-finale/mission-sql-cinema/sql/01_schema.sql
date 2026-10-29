@@ -4,11 +4,10 @@ GO
 SET NOCOUNT ON;
 GO
 
-IF OBJECT_ID('dbo.Reservations', 'U') IS NOT NULL DROP TABLE dbo.Reservations;
-IF OBJECT_ID('dbo.Seances', 'U') IS NOT NULL DROP TABLE dbo.Seances;
-IF OBJECT_ID('dbo.Cinemas', 'U') IS NOT NULL DROP TABLE dbo.Cinemas;
-IF OBJECT_ID('dbo.Films', 'U') IS NOT NULL DROP TABLE dbo.Films;
-IF OBJECT_ID('dbo.Clients', 'U') IS NOT NULL DROP TABLE dbo.Clients;
+IF EXISTS (SELECT 1 FROM sys.tables WHERE schema_id = SCHEMA_ID('dbo'))
+BEGIN
+    THROW 51000, 'La base MissionCinema contient deja des tables. Utilisez une base vide pour installer le schema. Aucune table existante ne sera supprimee.', 1;
+END;
 GO
 
 CREATE TABLE dbo.Films (
