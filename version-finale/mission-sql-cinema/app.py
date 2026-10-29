@@ -1,4 +1,5 @@
 import os
+from contextlib import closing
 from flask import Flask, render_template, request, session, redirect, url_for
 import pyodbc
 
@@ -66,9 +67,8 @@ def get_connection():
         "TrustServerCertificate=yes;"
     )
     connection = pyodbc.connect(connection_string, timeout=5)
-    cursor = connection.cursor()
-    cursor.execute("SET DATEFIRST 7;")
-    cursor.close()
+    with closing(connection.cursor()) as cursor:
+        cursor.execute("SET DATEFIRST 7;")
     return connection
 
 
@@ -101,10 +101,10 @@ def lire_options(etape):
             ORDER BY total DESC, jour_numero;
         """
 
-    with get_connection() as connection:
-        cursor = connection.cursor()
-        cursor.execute(sql)
-        rows = cursor.fetchall()
+    with closing(get_connection()) as connection:
+        with closing(connection.cursor()) as cursor:
+            cursor.execute(sql)
+            rows = cursor.fetchall()
 
     options = []
     for row in rows:

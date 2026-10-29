@@ -8,6 +8,7 @@ IF OBJECT_ID('dbo.Reservations', 'U') IS NOT NULL DROP TABLE dbo.Reservations;
 IF OBJECT_ID('dbo.Seances', 'U') IS NOT NULL DROP TABLE dbo.Seances;
 IF OBJECT_ID('dbo.Cinemas', 'U') IS NOT NULL DROP TABLE dbo.Cinemas;
 IF OBJECT_ID('dbo.Films', 'U') IS NOT NULL DROP TABLE dbo.Films;
+IF OBJECT_ID('dbo.Clients', 'U') IS NOT NULL DROP TABLE dbo.Clients;
 GO
 
 CREATE TABLE dbo.Films (
@@ -24,6 +25,13 @@ GO
 CREATE TABLE dbo.Cinemas (
     cinema_id INT NOT NULL CONSTRAINT PK_Cinemas PRIMARY KEY,
     nom NVARCHAR(80) NOT NULL,
+    ville NVARCHAR(80) NOT NULL
+);
+GO
+
+CREATE TABLE dbo.Clients (
+    client_id INT NOT NULL CONSTRAINT PK_Clients PRIMARY KEY,
+    pseudo NVARCHAR(40) NOT NULL,
     ville NVARCHAR(80) NOT NULL
 );
 GO
@@ -48,6 +56,7 @@ CREATE TABLE dbo.Reservations (
     places TINYINT NOT NULL,
     montant DECIMAL(7,2) NOT NULL,
     CONSTRAINT FK_Reservations_Seances FOREIGN KEY (seance_id) REFERENCES dbo.Seances(seance_id),
+    CONSTRAINT FK_Reservations_Clients FOREIGN KEY (client_id) REFERENCES dbo.Clients(client_id),
     CONSTRAINT CK_Reservations_Places CHECK (places BETWEEN 1 AND 8),
     CONSTRAINT CK_Reservations_Montant CHECK (montant >= 0)
 );
@@ -80,6 +89,32 @@ VALUES
 (3, N'Riviera Films', N'Montreux'),
 (4, N'Les Arcades', N'Aigle'),
 (5, N'Cinéma des Alpes', N'Yverdon-les-Bains');
+GO
+
+;WITH Chiffres AS (
+    SELECT n FROM (VALUES (0),(1),(2),(3),(4),(5),(6),(7),(8),(9)) AS V(n)
+),
+Numeros AS (
+    SELECT TOP (100000)
+        ROW_NUMBER() OVER (ORDER BY a.n, b.n, c.n, d.n, e.n) AS n
+    FROM Chiffres AS a
+    CROSS JOIN Chiffres AS b
+    CROSS JOIN Chiffres AS c
+    CROSS JOIN Chiffres AS d
+    CROSS JOIN Chiffres AS e
+)
+INSERT INTO dbo.Clients (client_id, pseudo, ville)
+SELECT
+    CONVERT(INT, n),
+    CONCAT(N'Visiteur-', RIGHT(CONCAT('000000', n), 6)),
+    CASE (n - 1) % 5
+        WHEN 0 THEN N'Lausanne'
+        WHEN 1 THEN N'Vevey'
+        WHEN 2 THEN N'Montreux'
+        WHEN 3 THEN N'Aigle'
+        ELSE N'Yverdon-les-Bains'
+    END
+FROM Numeros;
 GO
 
 ;WITH Chiffres AS (

@@ -41,6 +41,17 @@ class MissionAppTests(unittest.TestCase):
             self.assertEqual(state["score"], 0)
             self.assertFalse(state["dernier_resultat"]["correct"])
 
+    def test_untrusted_value_is_only_compared_to_options(self):
+        payload = "'; DROP TABLE dbo.Reservations;--"
+        with self.client.session_transaction() as state:
+            state["etape"] = 0
+            state["score"] = 0
+        with patch.object(mission_app, "charger_options", return_value=(mission_app.DONNEES_DEMO[0], True)):
+            self.client.post("/repondre", data={"choix": payload})
+        with self.client.session_transaction() as state:
+            self.assertEqual(state["score"], 0)
+            self.assertFalse(state["dernier_resultat"]["correct"])
+
     def test_restart_clears_session(self):
         with self.client.session_transaction() as state:
             state["etape"] = 2
