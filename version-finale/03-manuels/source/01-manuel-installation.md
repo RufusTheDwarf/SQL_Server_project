@@ -66,7 +66,7 @@ La configuration par défaut utilise l'instance SQL Server .\SQLEXPRESS et le po
 Pour utiliser un autre nom d'instance ou un autre port, ouvrir PowerShell à la racine du dépôt et exécuter par exemple :
 
 ```powershell
-.\\setup.ps1 -SqlServer ".\\SQLEXPRESS" -Port 5001
+.\setup.ps1 -SqlServer ".\SQLEXPRESS" -Port 5001
 ```
 
 L'adresse devient alors http://127.0.0.1:5001.
@@ -103,12 +103,12 @@ Exemple à adapter dans SSMS, avec le nom Windows réel à la place de DOMAINE\C
 ```sql
 USE master;
 GO
-CREATE LOGIN [DOMAINE\\ComptePO] FROM WINDOWS;
+CREATE LOGIN [DOMAINE\ComptePO] FROM WINDOWS;
 GO
 USE MissionCinema;
 GO
-CREATE USER [DOMAINE\\ComptePO] FOR LOGIN [DOMAINE\\ComptePO];
-ALTER ROLE mission_cinema_lecture ADD MEMBER [DOMAINE\\ComptePO];
+CREATE USER [DOMAINE\ComptePO] FOR LOGIN [DOMAINE\ComptePO];
+ALTER ROLE mission_cinema_lecture ADD MEMBER [DOMAINE\ComptePO];
 GO
 ```
 
@@ -165,7 +165,7 @@ Ouvrir PowerShell dans version-finale/mission-sql-cinema et exécuter :
 
 ```powershell
 py -m venv .venv
-.\\.venv\\Scripts\\Activate.ps1
+.\.venv\Scripts\Activate.ps1
 python -m pip install -r requirements.txt
 ```
 
@@ -176,7 +176,7 @@ Si l'activation de l'environnement est bloquée, utiliser directement .venv\Scri
 Pour une instance locale nommée SQLEXPRESS :
 
 ```powershell
-$env:SQL_SERVER = ".\\SQLEXPRESS"
+$env:SQL_SERVER = ".\SQLEXPRESS"
 $env:SQL_DATABASE = "MissionCinema"
 $env:SQL_DRIVER = "ODBC Driver 18 for SQL Server"
 python app.py
