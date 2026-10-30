@@ -1,61 +1,129 @@
 # Manuel de formation et d'animation
 
-## Avant l'arrivée du visiteur
+## Objectif de l'activité
 
-1. Ouvrir l'application et vérifier que SQL Server répond.
-2. Vérifier que le mode simulation n'est pas actif.
-3. Faire un parcours de contrôle et utiliser le bouton de recommencement.
-4. Garder cette fiche à portée de main.
+Le visiteur aide un festival à comprendre les préférences du public à partir des réservations d'un cinéma fictif. Il répond à trois défis en observant des résultats calculés par SQL Server.
+
+Le parcours est conçu pour durer entre cinq et huit minutes. Cette durée est un objectif qui doit encore être confirmé par des essais chronométrés avec plusieurs personnes.
+
+## Préparation avant l'arrivée du public
+
+1. Démarrer SQL Server et vérifier que la base `MissionCinema` est accessible.
+2. Démarrer l'application avec la procédure du manuel d'installation.
+3. Vérifier que la bannière « MODE SIMULATION » n'est pas affichée.
+4. Effectuer une partie complète de contrôle.
+5. Vérifier que les trois défis affichent des résultats cohérents.
+6. Tester le bouton « Recommencer ».
+7. Laisser l'application ouverte sur l'écran de départ.
+
+Si SQL Server n'est pas disponible, ne pas présenter les résultats simulés comme des résultats calculés par une vraie base de données.
 
 ## Présentation à dire au visiteur
 
-« Un festival doit décider ce qui intéresse le public. Tu vas répondre à trois questions en utilisant les réservations d'un cinéma fictif. Tu n'as pas besoin de connaître SQL. Observe les résultats et choisis la réponse la plus fréquente. »
+« Un festival veut organiser sa programmation en fonction des goûts du public. Tu vas analyser les réservations d'un cinéma fictif et répondre à trois questions. Pas besoin de connaître SQL à l'avance : observe les résultats, compare les chiffres et choisis la réponse qui correspond le mieux. »
 
-## Déroulement cible
+## Déroulement conseillé
 
-| Temps visé | Étape |
-|---|---|
-| 0:00 à 0:30 | Présenter la mission |
-| 0:30 à 1:30 | Lire la première question et expliquer les chiffres |
-| 1:30 à 4:30 | Répondre aux trois défis |
-| 4:30 à 5:30 | Expliquer le score et les notions utilisées |
-| 5:30 à 6:00 | Recommencer et accueillir le visiteur suivant |
+### 0 à 30 secondes : présenter la mission
 
-Cette grille est une cible de travail, pas une mesure validée. Adapter après plusieurs essais chronométrés.
+Expliquer le contexte du cinéma et le but de l'enquête. Préciser que les données sont fictives, mais structurées comme dans une vraie base de données.
 
-## Explications pédagogiques
+### 30 secondes à 1 minute 30 : expliquer le fonctionnement
 
-**Jointure :** une réservation indique une séance. La séance indique un film et un cinéma. Une jointure relie ces informations.
+Montrer comment lire une question, les réponses possibles et les nombres affichés. Laisser le visiteur prendre connaissance de l'écran.
 
-**GROUP BY :** regroupe les lignes qui ont une même valeur, par exemple le genre du film.
+### 1 minute 30 à 4 minutes 30 : réaliser les trois défis
 
-**COUNT :** compte les lignes de chaque groupe.
+Laisser le visiteur choisir ses réponses. Intervenir uniquement s'il ne comprend pas la consigne ou le vocabulaire.
 
-**ORDER BY :** trie les groupes pour repérer le total le plus élevé.
+### 4 minutes 30 à 5 minutes 30 : expliquer le résultat
 
-**DATEPART :** extrait une partie d'une date, ici le jour de la semaine.
+Présenter le score et relier les défis aux notions SQL utilisées. Demander au visiteur ce qu'il a observé.
+
+### 5 minutes 30 à 6 minutes : terminer
+
+Utiliser le bouton « Recommencer » et préparer l'écran pour la personne suivante.
+
+Ce déroulement est une proposition d'animation. Il doit être ajusté après plusieurs tests réels.
+
+## Notions SQL à expliquer
+
+### SELECT
+
+La commande SELECT permet de choisir les informations que l'on souhaite lire dans une base de données.
+
+### WHERE
+
+La clause WHERE filtre les lignes pour ne conserver que celles qui correspondent à une condition.
+
+### JOIN
+
+Une jointure relie des informations réparties dans plusieurs tables. Par exemple, une réservation peut être reliée à une séance, puis à un film et à un cinéma.
+
+### GROUP BY
+
+La clause GROUP BY rassemble les lignes qui possèdent une même valeur, par exemple les films appartenant au même genre.
+
+### COUNT
+
+La fonction COUNT compte le nombre de lignes dans un groupe.
+
+### ORDER BY
+
+La clause ORDER BY trie les résultats, par exemple du total le plus élevé au plus faible.
+
+### DATEPART
+
+La fonction DATEPART extrait une partie d'une date. Dans cette activité, elle sert notamment à analyser les jours de la semaine.
 
 ## Réponses attendues
 
-La bonne réponse de chaque défi est la première option issue du résultat SQL trié par total décroissant. Les totaux dépendent des données générées et doivent être observés dans la base installée. Ne mémoriser aucun chiffre avant l'exécution réelle.
+Les choix proposés sont issus des résultats SQL triés par total décroissant. La première option correspond au total le plus élevé pour le défi concerné.
 
-## Questions possibles
+Les chiffres exacts dépendent des données générées sur le serveur utilisé. Ils doivent être consultés dans l'application après l'installation. Ne pas apprendre ou annoncer des valeurs avant d'avoir exécuté les scripts et contrôlé la base.
 
-**À quoi sert une base de données ?** À conserver des informations organisées et à permettre de les retrouver ou de les analyser.
+## Questions possibles des visiteurs
 
-**Pourquoi plusieurs tables ?** Pour séparer les informations et relier les éléments par des clés.
+### À quoi sert une base de données ?
 
-**Pourquoi dix millions de lignes ?** Pour montrer qu'une base peut gérer beaucoup de données et que les requêtes doivent être structurées. La présence réelle du volume doit être vérifiée avant la présentation.
+Elle permet de stocker des informations de manière organisée, de les retrouver et de les analyser.
 
-**Les données sont-elles réelles ?** Non. Ce sont des données synthétiques créées pour l'exercice.
+### Pourquoi utiliser plusieurs tables ?
 
-## En cas de problème
+Pour organiser les informations, éviter les répétitions inutiles et relier les éléments grâce à des clés.
 
-- Si la connexion échoue, vérifier la fenêtre du serveur et la configuration avant de relancer.
-- Si le mode simulation apparaît, annoncer clairement que les chiffres sont des exemples. Ne pas présenter cette partie comme une requête SQL réelle.
-- Si l'application ne répond plus, arrêter puis relancer `python app.py`.
-- Si la base est indisponible, utiliser une activité de secours validée par l'enseignant plutôt que d'inventer un résultat.
+### Pourquoi utiliser des jointures ?
+
+Parce que les informations nécessaires à une analyse sont souvent réparties dans plusieurs tables.
+
+### Pourquoi générer dix millions de réservations ?
+
+Pour travailler sur un volume important et montrer l'intérêt de requêtes bien structurées. Le volume réel doit être confirmé avec le script de vérification avant la démonstration.
+
+### Les réservations sont-elles réelles ?
+
+Non. Les réservations sont des données synthétiques générées pour l'activité. Elles ne représentent pas des clients réels.
+
+## Gestion des problèmes
+
+### La page ne se charge plus
+
+Vérifier la fenêtre PowerShell. Si nécessaire, arrêter l'application avec CTRL+C puis la relancer avec `python app.py`.
+
+### La connexion à SQL Server échoue
+
+Vérifier le service SQL Server, le nom de l'instance, les paramètres de connexion et les droits du compte Windows. Ne pas basculer silencieusement en mode simulation.
+
+### Le mode simulation est affiché
+
+Informer clairement le visiteur que les résultats sont simulés. Pour une démonstration réelle, rétablir la connexion SQL Server et redémarrer l'application sans la variable `DEMO_MODE`.
+
+### La base de données est indisponible
+
+Utiliser uniquement une activité de secours préparée et validée à l'avance. Ne pas inventer de résultats ni présenter des captures d'écran comme une exécution en direct.
 
 ## Fin de partie
 
-Demander au visiteur ce que fait une jointure ou pourquoi on regroupe les lignes. Puis utiliser « Recommencer la partie ». Le bouton ne supprime aucune donnée de la base.
+Demander au visiteur d'expliquer avec ses mots ce qu'est une jointure ou pourquoi on regroupe les lignes. Le remercier pour sa participation, puis utiliser « Recommencer » pour préparer l'activité suivante.
+
+Le bouton de nouvelle partie réinitialise la progression du navigateur. Il ne supprime aucune donnée de la base SQL.
