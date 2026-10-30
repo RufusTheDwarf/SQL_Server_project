@@ -8,6 +8,13 @@ on:
       - "version-finale/03-manuels/source/**"
       - "version-finale/03-manuels/build_manuals.py"
       - ".github/workflows/build-03-manuels.yml"
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "version-finale/03-manuels/**"
+      - ".github/workflows/build-03-manuels.yml"
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -80,6 +87,7 @@ jobs:
           retention-days: 14
 
       - name: Publier les fichiers générés dans main
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
