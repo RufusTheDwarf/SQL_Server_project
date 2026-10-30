@@ -199,28 +199,12 @@ Pour montrer que SQL peut traiter et analyser un grand nombre de lignes. Le volu
 
 ## 9. Gestion des problèmes
 
-### La page ne se charge plus
-
-Consulter la fenêtre de lancement et les journaux dans version-finale/mission-sql-cinema/logs/. Si nécessaire, redémarrer l'application avec setup.bat.
-
-### La connexion SQL Server échoue
-
-Vérifier le service SQL Server, le nom de l'instance, ODBC Driver 18 et les droits du compte Windows.
-
-### Le mode simulation apparaît
-
-Informer le visiteur que les chiffres sont des exemples. Pour une démonstration réelle, fermer l'application, supprimer la variable DEMO_MODE si elle est définie, puis relancer setup.bat.
-
-### Le serveur Flask doit être arrêté
-
-Utiliser le PID affiché par setup.bat et exécuter Stop-Process -Id PID dans PowerShell. Remplacer PID par le nombre réel.
-
-### La base est indisponible
-
-Ne pas inventer de résultats et ne pas présenter des captures comme une exécution en direct. Utiliser uniquement une activité de secours préparée et acceptée par l'enseignant.
+- La page ne se charge plus : consulter les journaux dans version-finale/mission-sql-cinema/logs/ et redémarrer avec setup.bat si nécessaire.
+- La connexion SQL Server échoue : vérifier le service, le nom de l'instance, ODBC Driver 18 et les droits du compte Windows.
+- Le mode simulation apparaît : prévenir le visiteur que les chiffres sont des exemples. Pour une démonstration réelle, fermer l'application, supprimer DEMO_MODE si elle est définie, puis relancer setup.bat.
+- Pour arrêter Flask : utiliser le PID affiché par setup.bat avec Stop-Process -Id PID dans PowerShell. Remplacer PID par le nombre réel.
+- Si la base est indisponible : ne pas inventer de résultats ni présenter des captures comme une exécution en direct. Utiliser uniquement une activité de secours préparée et acceptée par l'enseignant.
 
 ## 10. Fin de partie
 
-Demander au visiteur d'expliquer avec ses mots pourquoi une jointure ou un regroupement est utile. Le remercier, puis cliquer sur Recommencer.
-
-Le bouton Recommencer remet à zéro la progression de la session du navigateur. Il ne supprime aucune donnée SQL.
+Demander au visiteur d'expliquer avec ses mots pourquoi une jointure ou un regroupement est utile. Le remercier, puis cliquer sur Recommencer. Ce bouton remet à zéro la progression de la session du navigateur et ne supprime aucune donnée SQL.
