@@ -1,0 +1,100 @@
+name: Génération des manuels Word et PDF
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "version-finale/03-manuels/source/**"
+      - "version-finale/03-manuels/build_manuals.py"
+      - ".github/workflows/build-03-manuels.yml"
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "version-finale/03-manuels/**"
+      - ".github/workflows/build-03-manuels.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-03-manuels-main
+  cancel-in-progress: false
+
+jobs:
+  build-manuals:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Récupérer le dépôt
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Installer Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Installer LibreOffice
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libreoffice-writer
+
+      - name: Installer python-docx
+        run: python -m pip install python-docx
+
+      - name: Générer les documents Word et PDF
+        working-directory: version-finale/03-manuels
+        run: python build_manuals.py
+
+      - name: Vérifier les six livrables
+        working-directory: version-finale/03-manuels
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from zipfile import ZipFile
+          from docx import Document
+
+          root = Path(".")
+          stems = [
+              "L-141-Rafael_Melo-ManuelInstallation",
+              "D-141-Rafael_Melo-ManuelAnimateur",
+              "D-141-Rafael_Melo-ManuelVisiteur",
+          ]
+          for stem in stems:
+              docx = root / f"{stem}.docx"
+              pdf = root / f"{stem}.pdf"
+              assert docx.is_file() and docx.stat().st_size > 5000, docx
+              assert pdf.is_file() and pdf.stat().st_size > 1000, pdf
+              with ZipFile(docx) as package:
+                  assert package.testzip() is None, docx
+              parsed = Document(docx)
+              assert parsed.paragraphs, docx
+              assert len(parsed.tables) == 0, docx
+              print(f"OK: {docx.name}, {pdf.name}")
+          PY
+
+      - name: Archiver les manuels pour vérification
+        uses: actions/upload-artifact@v4
+        with:
+          name: mission-sql-cinema-manuels
+          path: |
+            version-finale/03-manuels/*.docx
+            version-finale/03-manuels/*.pdf
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Publier les fichiers générés dans main
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add version-finale/03-manuels/*.docx version-finale/03-manuels/*.pdf
+          if ! git diff --cached --quiet; then
+            git commit -m "build(docs): publie les trois manuels Word et PDF"
+            git push origin main
+          else
+            echo "Les fichiers générés sont déjà à jour."
+          fi
