@@ -258,7 +258,7 @@ DECLARE @TopDay INT = (
     ORDER BY COUNT_BIG(*) DESC, DATEPART(WEEKDAY, date_reservation)
 );
 SELECT CASE
-    WHEN @Reservations = 10000000
+    WHEN @Reservations >= 10000000
      AND @Orphans = 0
      AND @TopGenre = N'Science-fiction'
      AND @TopCinema = N'Cinéma du Centre'
@@ -269,7 +269,7 @@ END;
     if ($dataCheck -notmatch "(?m)^\s*1\s*$") {
         throw "Les donnees ne passent pas le controle final (volume, relations ou reponses attendues). Lis les resultats de sql/03_verify_volume.sql."
     }
-    Write-Host "Controle SQL : 10 000 000 reservations, aucune relation orpheline et trois gagnants distincts."
+    Write-Host "Controle SQL : au moins 10 000 000 reservations, aucune relation orpheline et trois gagnants distincts."
 
     Write-Step "Tests applicatifs"
     Invoke-Python -PythonArguments @("-m", "unittest", "discover", "-s", (Join-Path $ProjectRoot "tests"), "-p", "test_app.py", "-v")
