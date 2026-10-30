@@ -82,7 +82,7 @@ La clause WHERE n'est pas utilisée dans les trois défis actuels. Ne pas la pr�
 
 La requête relie Reservations, Seances et Films, puis compte les réservations par genre.
 
-\`\`\`sql
+```sql
 SELECT
     f.genre AS label,
     f.genre AS value,
@@ -92,13 +92,13 @@ INNER JOIN dbo.Seances AS s ON s.seance_id = r.seance_id
 INNER JOIN dbo.Films AS f ON f.film_id = s.film_id
 GROUP BY f.genre
 ORDER BY total DESC, f.genre;
-\`\`\`
+```
 
 ### Défi 2 : cinéma le plus fréquenté
 
 La requête relie Reservations, Seances et Cinemas, puis compte les réservations par établissement.
 
-\`\`\`sql
+```sql
 SELECT
     c.nom AS label,
     CONVERT(VARCHAR(12), c.cinema_id) AS value,
@@ -108,20 +108,20 @@ INNER JOIN dbo.Seances AS s ON s.seance_id = r.seance_id
 INNER JOIN dbo.Cinemas AS c ON c.cinema_id = s.cinema_id
 GROUP BY c.nom, c.cinema_id
 ORDER BY total DESC, c.nom;
-\`\`\`
+```
 
 ### Défi 3 : jour de réservation
 
 La requête extrait le jour de la semaine, compte les réservations et trie les totaux.
 
-\`\`\`sql
+```sql
 SELECT
     DATEPART(WEEKDAY, r.date_reservation) AS jour_numero,
     COUNT_BIG(*) AS total
 FROM dbo.Reservations AS r
 GROUP BY DATEPART(WEEKDAY, r.date_reservation)
 ORDER BY total DESC, jour_numero;
-\`\`\`
+```
 
 ## Réponses attendues avec le générateur fourni
 
