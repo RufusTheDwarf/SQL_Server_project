@@ -1,33 +1,47 @@
 # Matrice de conformité au cahier des charges
 
-Les statuts ci-dessous décrivent les preuves présentes dans la branche de travail. Ils ne remplacent pas les vérifications sur un SQL Server réel ni la validation de l'enseignant.
+Cette synthèse décrit les fichiers et les contrôles prévus. Un statut « en place » signifie que le code ou le document existe. Il ne prouve pas qu'un test a été exécuté sur un vrai serveur ou avec un visiteur.
 
-| Exigence | Statut | Preuve ou vérification restante |
-| --- | --- | --- |
-| Activité ludique sur un thème connu | Partiellement conforme | `docs/02-validation-scenario.md`; validation enseignant à obtenir |
-| Lien avec les cours ICT | Partiellement conforme | Notions décrites dans la fiche de scénario; correspondance avec le cours et le livre à confirmer |
-| Dix millions d'enregistrements réels | Non vérifié | `sql/02_generate_reservations.sql` et `sql/03_verify_volume.sql`; exécuter et conserver les résultats SQL |
-| Durée de cinq à huit minutes | Non vérifié | Chronométrer plusieurs visiteurs, animateur et remise à zéro compris |
-| Requêtes SQL réelles | Partiellement conforme | `app.py`; tester les trois requêtes avec SQL Server installé |
-| Installation sur un autre PC | Non vérifié | Suivre le manuel et réaliser un essai sur un poste propre |
-| Manuel d'installation | Partiellement conforme | `docs/04-manuel-installation.md`; vérifier les étapes sur le PC cible |
-| Manuel d'animation | Partiellement conforme | `docs/05-manuel-animation.md`; faire relire et tester |
-| Documents visiteurs Word et PDF | Partiellement conforme | Fichiers de livraison générés séparément; vérifier leur intégration à la livraison finale |
-| Rapport de raisonnement | Partiellement conforme | `docs/06-rapport-projet.md`; actualiser après mesures réelles |
-| Affiche promotionnelle | Partiellement conforme | `docs/12-affiche.html`; ouvrir et imprimer en PDF, vérifier sur imprimante |
-| Journal quotidien honnête | Partiellement conforme | `docs/07-journal-travail-modele.md`; les lignes réelles doivent être complétées par les collaborateurs |
-| Planification de 32 périodes | Conforme comme plan | `docs/08-plan-32-periodes.md`; ne prouve pas que les périodes ont été réalisées |
-| Tests unitaires | Conforme pour le périmètre CI | Workflow GitHub Actions réussi sur le commit observé |
-| Tests SQL Server et performances | Non vérifié | Aucun serveur SQL Server n'a été exécuté dans cet environnement |
-| Sécurité des requêtes et secrets | Partiellement conforme | Les choix de réponses sont comparés aux options retournées; revue locale et configuration du poste restent nécessaires |
-| Mode simulation clairement identifié | Partiellement conforme | Bannière visible; vérifier les consignes aux animateurs |
-| Validation par l'enseignant | Non vérifié | Décision écrite à ajouter après validation réelle |
+## En place dans le dépôt
 
-## Preuves à conserver avant de déclarer le projet terminé
+- Activité guidée sur le thème du cinéma : trois défis sont présents dans l'application Flask.
+- Utilisation de Microsoft SQL Server : connexion pyodbc et scripts T-SQL présents.
+- Données synthétiques : schéma relationnel et générateur visant 10 000 000 réservations.
+- Notions SQL : SELECT, jointures, GROUP BY, COUNT_BIG, ORDER BY et DATEPART.
+- Mode simulation : identifié à l'écran et séparé du mode SQL réel.
+- Requêtes paramétrées : les réponses du visiteur sont comparées aux options connues ; elles ne sont pas concaténées dans une requête SQL.
+- Lecture seule : un rôle SQL dédié peut être préparé avec le script 04.
+- Tests : tests applicatifs et tests d'intégration SQL Server présents.
+- Documentation : manuels d'installation et d'animation, rapport, fiche de validation, consignes visiteurs, affiche, journal modèle et plan des 32 périodes présents.
 
-1. Capture ou export des résultats de `03_verify_volume.sql`.
-2. Temps de génération et espace disque mesurés.
-3. Résultats des tests d'intégration avec SQL Server.
-4. Mesures chronométrées du parcours.
-5. Résultat de l'installation sur le PC cible.
+## À vérifier sur un vrai SQL Server
+
+- La présence effective d'au moins 10 000 000 réservations.
+- L'absence de références orphelines.
+- Les résultats des trois requêtes et l'ordre des réponses.
+- La durée de génération sur le PC de préparation.
+- L'espace disque utilisé par les données, les index et le journal des transactions.
+- Le temps de réponse des défis après la génération.
+- L'exécution des tests d'intégration avec RUN_SQL_INTEGRATION=1.
+- L'installation complète sur un PC Windows distinct, avec exécution réelle de `setup.bat`.
+
+## À valider avec l'enseignant et les visiteurs
+
+- L'adéquation du scénario au public des Portes ouvertes.
+- La correspondance des notions avec le programme ICT et le livre SQL Server 2022 de J. Poirier.
+- La compréhension des consignes par un visiteur débutant.
+- La durée réelle du parcours, remise à zéro comprise.
+- La procédure d'animation et l'activité de secours.
+
+## Preuves à conserver
+
+1. Résultats complets de sql/03_verify_volume.sql.
+2. Temps de génération et espace disque relevés.
+3. Sortie des tests unitaires et des tests SQL Server.
+4. Mesures de plusieurs parcours chronométrés.
+5. Résultat d'installation sur le PC de Sébeillon.
 6. Décision de validation du scénario par l'enseignant.
+
+## Règle de mise à jour
+
+Ne passer une exigence de « à vérifier » à « validée » qu'après avoir conservé une preuve datée. Une exécution réussie des tests unitaires ne valide ni les données SQL réelles ni l'installation sur le poste final.
