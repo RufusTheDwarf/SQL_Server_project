@@ -23,5 +23,3 @@ Depuis ce dossier, exécuter :
 ```powershell
 python build_manuals.py
 ```
-
-Le script utilise python-docx et LibreOffice. Les titres, sous-titres et textes sont forcés en noir, sans couleur de thème Word. La hiérarchie des titres, les espacements, l'en-tête et le pied de page sont uniformisés. Les blocs de code sont présentés en Consolas sur fond gris très clair, avec un repère noir. Aucun tableau n'est ajouté.
