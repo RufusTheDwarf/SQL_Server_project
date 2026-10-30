@@ -47,6 +47,13 @@ class MissionAppTests(unittest.TestCase):
         self.assertIn("MODE SIMULATION".encode(), response.data)
         self.assertIn(b"COUNT_BIG", response.data)
 
+    def test_demo_challenges_have_ten_million_rows_and_a_unique_leader(self):
+        for options in mission_app.DONNEES_DEMO:
+            totals = [int(option["total"]) for option in options]
+            self.assertEqual(sum(totals), 10_000_000)
+            self.assertGreater(totals[0], totals[1])
+            self.assertEqual(totals, sorted(totals, reverse=True))
+
     def test_connection_error_is_explained(self):
         with patch.dict(os.environ, {"DEMO_MODE": ""}):
             with patch.object(mission_app, "charger_options", side_effect=mission_app.pyodbc.Error("connection failed")):
