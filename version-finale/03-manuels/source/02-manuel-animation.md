@@ -118,34 +118,11 @@ L'application configure DATEFIRST à 7 sur chaque connexion SQL. La numérotatio
 
 Ces totaux décrivent le jeu de données synthétique prévu par le générateur. Ils ne représentent pas des statistiques de vrais cinémas. Les confirmer sur le serveur avec sql/03_verify_volume.sql après la génération.
 
-### Par genre
+Genres : Science-fiction 1 880 000 ; Comédie 1 255 000 ; Documentaire 1 255 000 ; Drame 1 255 000 ; Action 1 242 500 ; Aventure 1 242 500 ; Mystère 1 242 500 ; Thriller 627 500.
 
-- Science-fiction : 1 880 000.
-- Comédie : 1 255 000.
-- Documentaire : 1 255 000.
-- Drame : 1 255 000.
-- Action : 1 242 500.
-- Aventure : 1 242 500.
-- Mystère : 1 242 500.
-- Thriller : 627 500.
+Cinémas : Cinéma du Centre 3 000 000 ; Le Grand Écran 2 500 000 ; Riviera Films 2 000 000 ; Les Arcades 1 500 000 ; Cinéma des Alpes 1 000 000.
 
-### Par cinéma
-
-- Cinéma du Centre : 3 000 000.
-- Le Grand Écran : 2 500 000.
-- Riviera Films : 2 000 000.
-- Les Arcades : 1 500 000.
-- Cinéma des Alpes : 1 000 000.
-
-### Par jour de réservation
-
-- Samedi : 3 500 000.
-- Vendredi : 1 500 000.
-- Dimanche : 1 000 000.
-- Lundi : 1 000 000.
-- Mardi : 1 000 000.
-- Mercredi : 1 000 000.
-- Jeudi : 1 000 000.
+Jours de réservation : samedi 3 500 000 ; vendredi 1 500 000 ; dimanche, lundi, mardi, mercredi et jeudi 1 000 000 chacun.
 
 ## 7. Notions SQL à expliquer
 
@@ -177,25 +154,11 @@ La clause WHERE n'est pas utilisée dans les trois requêtes de l'activité. Ne 
 
 ## 8. Questions possibles des visiteurs
 
-### À quoi sert une base de données ?
-
-Elle sert à stocker des informations de manière organisée, à les retrouver et à les analyser.
-
-### Pourquoi séparer les informations dans plusieurs tables ?
-
-Pour organiser les données et éviter de répéter inutilement les mêmes informations.
-
-### Pourquoi les jointures sont-elles utiles ?
-
-Parce que les informations nécessaires à une réponse se trouvent souvent dans plusieurs tables.
-
-### Les réservations sont-elles réelles ?
-
-Non. Elles sont générées pour l'activité et ne représentent pas de vrais clients.
-
-### Pourquoi dix millions de réservations ?
-
-Pour montrer que SQL peut traiter et analyser un grand nombre de lignes. Le volume doit être contrôlé sur le serveur avant de l'annoncer comme atteint.
+- À quoi sert une base de données ? À stocker des informations de façon organisée, à les retrouver et à les analyser.
+- Pourquoi plusieurs tables ? Pour organiser les données et éviter de répéter inutilement les mêmes informations.
+- Pourquoi les jointures ? Parce que les informations nécessaires à une réponse se trouvent souvent dans plusieurs tables.
+- Les réservations sont-elles réelles ? Non, elles sont générées pour l'activité et ne représentent pas de vrais clients.
+- Pourquoi dix millions de réservations ? Pour montrer que SQL peut traiter un grand nombre de lignes. Le volume doit être contrôlé sur le serveur avant de l'annoncer comme atteint.
 
 ## 9. Gestion des problèmes
 
