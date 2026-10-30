@@ -20,8 +20,8 @@ SQL Server, sqlcmd, Python et Microsoft ODBC Driver 18 doivent être installés 
 
 Depuis ce dossier, exécuter :
 
-\`\`\`powershell
+```powershell
 python build_manuals.py
-\`\`\`
+```
 
 Le script utilise python-docx et LibreOffice. Il ne crée ni tableau ni élément décoratif coloré. Tous les textes sont en noir.
