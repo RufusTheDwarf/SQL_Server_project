@@ -18,7 +18,7 @@ MANUALS = [
 BLACK = RGBColor(0, 0, 0)
 TICK = chr(96)
 
-def set_black(run, name="Arial", size=10.5, bold=None):
+def set_black(run, name="Arial", size=10, bold=None):
     run.font.name = name
     run.font.size = Pt(size)
     run.font.color.rgb = BLACK
@@ -55,24 +55,24 @@ def make_docx(source_path, output_path):
     doc = Document()
     sec = doc.sections[0]
     sec.page_width, sec.page_height = Cm(21), Cm(29.7)
-    sec.top_margin, sec.bottom_margin = Cm(1.75), Cm(1.65)
+    sec.top_margin, sec.bottom_margin = Cm(1.5), Cm(1.4)
     sec.left_margin, sec.right_margin = Cm(2.0), Cm(2.0)
 
     normal = doc.styles["Normal"]
     normal.font.name = "Arial"
-    normal.font.size = Pt(10.5)
+    normal.font.size = Pt(10)
     normal.font.color.rgb = BLACK
-    normal.paragraph_format.space_after = Pt(4)
-    normal.paragraph_format.line_spacing = 1.05
+    normal.paragraph_format.space_after = Pt(3)
+    normal.paragraph_format.line_spacing = 1.0
 
-    for name, size in (("Heading 1", 15), ("Heading 2", 12.5), ("Heading 3", 11)):
+    for name, size in (("Heading 1", 14.5), ("Heading 2", 11.5), ("Heading 3", 10.5)):
         style = doc.styles[name]
         style.font.name = "Arial"
         style.font.size = Pt(size)
         style.font.bold = True
         style.font.color.rgb = BLACK
-        style.paragraph_format.space_before = Pt(10 if name == "Heading 1" else 7)
-        style.paragraph_format.space_after = Pt(3)
+        style.paragraph_format.space_before = Pt(7 if name == "Heading 1" else 5)
+        style.paragraph_format.space_after = Pt(2.5)
         style.paragraph_format.keep_with_next = True
         style.paragraph_format.keep_together = True
 
@@ -93,11 +93,11 @@ def make_docx(source_path, output_path):
                 p = doc.add_paragraph()
                 p.paragraph_format.left_indent = Cm(0.55)
                 p.paragraph_format.right_indent = Cm(0.25)
-                p.paragraph_format.space_before = Pt(2)
-                p.paragraph_format.space_after = Pt(6)
+                p.paragraph_format.space_before = Pt(1)
+                p.paragraph_format.space_after = Pt(4)
                 p.paragraph_format.keep_together = True
                 run = p.add_run(chr(10).join(code_lines))
-                set_black(run, "Consolas", 8.5)
+                set_black(run, "Consolas", 8)
                 in_code = False
             continue
         if in_code:
@@ -121,7 +121,7 @@ def make_docx(source_path, output_path):
             p = doc.add_paragraph()
             p.paragraph_format.left_indent = Cm(0.45)
             p.paragraph_format.first_line_indent = Cm(-0.35)
-            p.paragraph_format.space_after = Pt(2)
+            p.paragraph_format.space_after = Pt(1.5)
             add_inline(p, "- " + line[2:])
         else:
             number = re.match(r"^(\d+)\.\s+(.*)$", line)
