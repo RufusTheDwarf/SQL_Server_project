@@ -191,3 +191,30 @@ If this project helped you learn something new, consider giving it a star.
 *"In SQL we trust."* 🗄️
 
 </div>
+
+---
+
+## ETML Open Days Refactor
+
+The original SQL Server learning materials and historical activity remain available. A separate prototype is being developed for the ETML Open Days under `version-finale/mission-sql-cinema/`.
+
+**Provisional activity:** Mission SQL: Cinema Investigation. Visitors answer three questions using synthetic cinema reservation data. The activity demonstrates joins, grouping, counting, sorting and date extraction.
+
+The scenario still requires teacher approval. The application unit tests pass in GitHub Actions, but SQL Server has not been executed in this remote development environment. The actual ten million reservation count, generation duration, disk usage, five to eight minute visitor duration and installation on the target PC must still be verified.
+
+### Refactor resources
+
+- [Activity README](version-finale/mission-sql-cinema/README.md)
+- [Initial repository audit](version-finale/mission-sql-cinema/docs/01-audit-etat-initial.md)
+- [Scenario approval sheet](version-finale/mission-sql-cinema/docs/02-fiche-validation-scenario.md)
+- [Compliance matrix](version-finale/mission-sql-cinema/docs/03-matrice-conformite.md)
+- [Installation manual](version-finale/mission-sql-cinema/docs/04-manuel-installation.md)
+- [Animation manual](version-finale/mission-sql-cinema/docs/05-manuel-animation.md)
+- [Project report](version-finale/mission-sql-cinema/docs/06-rapport-projet.md)
+- [Work log template](version-finale/mission-sql-cinema/docs/07-journal-travail-modele.md)
+- [32-period plan](version-finale/mission-sql-cinema/docs/08-plan-32-periodes.md)
+- [Migration checklist](version-finale/mission-sql-cinema/docs/11-checklist-migration.md)
+- [Printable poster](version-finale/mission-sql-cinema/docs/12-affiche.html)
+- [Visitor instructions](version-finale/mission-sql-cinema/docs/13-document-visiteur.html)
+
+The refactor is maintained on branch `refonte-activite-etml`. It is not merged into `main`.
