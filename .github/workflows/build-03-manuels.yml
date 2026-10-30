@@ -69,6 +69,16 @@ jobs:
               print(f"OK: {docx.name}, {pdf.name}")
           PY
 
+      - name: Archiver les manuels pour vérification
+        uses: actions/upload-artifact@v4
+        with:
+          name: mission-sql-cinema-manuels
+          path: |
+            version-finale/03-manuels/*.docx
+            version-finale/03-manuels/*.pdf
+          if-no-files-found: error
+          retention-days: 14
+
       - name: Publier les fichiers générés dans main
         run: |
           git config user.name "github-actions[bot]"
