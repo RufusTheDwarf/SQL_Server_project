@@ -77,11 +77,11 @@ ETAPES = [
 DONNEES_DEMO = [
     [
         {"label": "Science-fiction", "value": "Science-fiction", "total": 1880000},
-        {"label": "Action", "value": "Action", "total": 1242500},
-        {"label": "Aventure", "value": "Aventure", "total": 1242500},
         {"label": "Comédie", "value": "Comédie", "total": 1255000},
         {"label": "Documentaire", "value": "Documentaire", "total": 1255000},
         {"label": "Drame", "value": "Drame", "total": 1255000},
+        {"label": "Action", "value": "Action", "total": 1242500},
+        {"label": "Aventure", "value": "Aventure", "total": 1242500},
         {"label": "Mystère", "value": "Mystère", "total": 1242500},
         {"label": "Thriller", "value": "Thriller", "total": 627500},
     ],
