@@ -2,17 +2,18 @@
 
 Le festival a besoin de ton aide.
 
-Trois questions, trois défis : découvre quel genre attire le public, quel cinéma reçoit le plus de réservations et quel jour est le plus fréquent.
+Trois défis t'attendent :
+1. Découvre quel genre de film attire le plus de réservations.
+2. Trouve le cinéma qui reçoit le plus de réservations.
+3. Repère le jour où les réservations sont les plus nombreuses.
 
 ## Comment jouer
 
-1. Lis la question.
-2. Observe les résultats.
-3. Choisis la réponse qui te semble correcte.
-4. Découvre ce que la base de données a calculé.
+1. Lis la question à l'écran.
+2. Observe les propositions et les nombres.
+3. Choisis une réponse.
+4. Lis le résultat et l'explication.
 
-Tu n'as pas besoin de connaître SQL. L'activité dure environ 5 à 8 minutes, selon le rythme de la partie.
+Tu n'as pas besoin de connaître SQL. L'activité est guidée et vise une durée de 5 à 8 minutes.
 
-À la fin, tu verras comment une base de données peut relier des informations et analyser de nombreuses réservations.
-
-Les données utilisées dans cette activité sont synthétiques.
+Les données sont synthétiques. Elles ont été créées pour apprendre à relier et analyser des informations.

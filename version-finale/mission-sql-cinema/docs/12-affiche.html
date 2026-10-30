@@ -5,53 +5,52 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Affiche | Mission SQL au cinéma</title>
 <style>
-@page { size: A4 portrait; margin: 0; }
+@page { size: A4 portrait; margin: 18mm; }
 * { box-sizing: border-box; }
-body { margin: 0; background: #e9edf3; color: #182b42; font-family: "Segoe UI", Arial, sans-serif; }
-.poster { width: 210mm; min-height: 297mm; margin: 0 auto; padding: 22mm 18mm; background: #f7f9fc; display: flex; flex-direction: column; justify-content: space-between; }
-.top { padding: 12mm; border-radius: 9mm; color: white; background: #183d68; }
-.brand { font-size: 12pt; font-weight: 800; letter-spacing: 2px; color: #cbdcf0; }
-h1 { margin: 16mm 0 4mm; font-size: 48pt; line-height: .98; letter-spacing: -2px; }
-h2 { margin: 0; font-size: 26pt; color: #d9e8f8; }
-.lead { max-width: 145mm; font-size: 18pt; line-height: 1.45; }
-.duration { display: inline-block; margin-top: 8mm; padding: 4mm 6mm; border: 1px solid rgba(255,255,255,.5); border-radius: 50px; font-size: 16pt; font-weight: 800; }
-.section { padding: 10mm 4mm; }
-.section h3 { margin: 0 0 6mm; font-size: 21pt; }
-.steps { display: grid; grid-template-columns: 1fr; gap: 5mm; }
-.step { display: flex; align-items: center; gap: 6mm; padding: 5mm; border: 1px solid #d6e0eb; border-radius: 5mm; background: white; }
-.number { width: 13mm; height: 13mm; flex: 0 0 13mm; display: grid; place-items: center; border-radius: 50%; color: white; background: #2f7a61; font-size: 18pt; font-weight: 800; }
-.step strong { display: block; font-size: 16pt; }
-.step span { display: block; margin-top: 2mm; color: #586b81; font-size: 12pt; }
-.callout { padding: 8mm; border-radius: 5mm; background: #e6f1eb; text-align: center; }
-.callout strong { display: block; font-size: 22pt; color: #235c49; }
-.callout p { margin: 3mm 0 0; font-size: 14pt; }
-footer { padding-top: 8mm; border-top: 1px solid #d6e0eb; color: #5e6e81; text-align: center; font-size: 12pt; }
-@media print { body { background: white; } .poster { margin: 0; box-shadow: none; } }
-@media screen { .poster { box-shadow: 0 8px 35px #b6c1d0; } }
+body { margin: 0; color: #000; background: #fff; font-family: Arial, sans-serif; }
+.poster { width: 174mm; min-height: 261mm; margin: 0 auto; display: flex; flex-direction: column; justify-content: space-between; }
+header { border: 2px solid #000; padding: 14mm; }
+.kicker { margin: 0 0 8mm; font-size: 13pt; font-weight: bold; letter-spacing: 1px; }
+h1 { margin: 0; font-size: 42pt; line-height: 1; }
+h2 { margin: 5mm 0 0; font-size: 24pt; font-weight: normal; }
+.lead { margin: 12mm 0 0; font-size: 17pt; line-height: 1.4; }
+.duration { margin-top: 10mm; font-size: 19pt; font-weight: bold; }
+section { padding: 10mm 2mm; }
+section h3 { margin: 0 0 7mm; font-size: 21pt; }
+.steps { display: grid; gap: 6mm; }
+.step { border: 1px solid #000; padding: 6mm; }
+.step strong { display: block; font-size: 17pt; }
+.step p { margin: 2mm 0 0; font-size: 13pt; }
+.notice { border: 2px solid #000; padding: 8mm; text-align: center; }
+.notice strong { display: block; font-size: 19pt; }
+.notice p { margin: 3mm 0 0; font-size: 13pt; }
+footer { padding-top: 7mm; border-top: 1px solid #000; text-align: center; font-size: 11pt; }
+@media print { .poster { width: auto; min-height: 261mm; } }
+@media screen { .poster { margin: 20px auto; } }
 </style>
 </head>
 <body>
 <main class="poster">
-<header class="top">
-<div class="brand">PORTES OUVERTES ETML</div>
+<header>
+<p class="kicker">JOURNÉES PORTES OUVERTES ETML</p>
 <h1>MISSION SQL</h1>
 <h2>Enquête au cinéma</h2>
-<p class="lead">Un festival a besoin de toi. Explore les réservations et découvre ce qui attire le public.</p>
-<div class="duration">3 défis en 5 à 8 minutes</div>
+<p class="lead">Un festival a besoin de toi. Analyse les réservations et découvre ce qui attire le public.</p>
+<p class="duration">3 défis. 5 à 8 minutes visées.</p>
 </header>
-<section class="section">
+<section>
 <h3>À toi de trouver les tendances</h3>
 <div class="steps">
-<div class="step"><div class="number">1</div><div><strong>Le genre préféré</strong><span>Quel type de film attire le plus de réservations ?</span></div></div>
-<div class="step"><div class="number">2</div><div><strong>Le cinéma le plus fréquenté</strong><span>Où le public réserve-t-il le plus ?</span></div></div>
-<div class="step"><div class="number">3</div><div><strong>Le jour le plus populaire</strong><span>Quand les réservations sont-elles les plus nombreuses ?</span></div></div>
+<div class="step"><strong>1. Le genre préféré</strong><p>Quel type de film attire le plus de réservations ?</p></div>
+<div class="step"><strong>2. Le cinéma le plus fréquenté</strong><p>Où le public réserve-t-il le plus ?</p></div>
+<div class="step"><strong>3. Le jour le plus populaire</strong><p>Quel jour compte le plus de réservations ?</p></div>
 </div>
 </section>
-<section class="callout">
+<section class="notice">
 <strong>Aucune connaissance de SQL nécessaire</strong>
-<p>Observe les résultats, fais tes choix et découvre comment une base de données aide à prendre des décisions.</p>
+<p>Observe les résultats, fais tes choix et découvre comment une base de données aide à répondre à des questions.</p>
 </section>
-<footer>Activité pédagogique avec données synthétiques. La version finale doit être validée et chronométrée avant impression.</footer>
+<footer>Activité pédagogique utilisant des données synthétiques. Durée cible à confirmer par des essais.</footer>
 </main>
 </body>
 </html>

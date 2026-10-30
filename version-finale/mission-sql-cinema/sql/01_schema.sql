@@ -78,7 +78,7 @@ VALUES
 (13, N'Le Club du Dimanche', N'Comédie', 95, 6),
 (14, N'La Carte Perdue', N'Aventure', 121, 10),
 (15, N'Les Machines Rêvent', N'Science-fiction', 123, 10),
-(16, N'Une Affaire de Famille', N'Mystère', 108, 10);
+(16, N'Le Dossier Oublié', N'Thriller', 108, 10);
 GO
 
 INSERT INTO dbo.Cinemas (cinema_id, nom, ville)
@@ -101,6 +101,7 @@ Numeros AS (
     CROSS JOIN Chiffres AS c
     CROSS JOIN Chiffres AS d
     CROSS JOIN Chiffres AS e
+    ORDER BY a.n, b.n, c.n, d.n, e.n
 )
 INSERT INTO dbo.Clients (client_id, pseudo, ville)
 SELECT

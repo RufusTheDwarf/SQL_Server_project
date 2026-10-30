@@ -1,220 +1,71 @@
-<div align="center">
+# Mission SQL Cinéma
 
-# 🗄️ SQL Server Project
+Projet scolaire destiné aux Journées Portes Ouvertes de l'ETML. L'activité propose trois défis guidés pour découvrir les jointures, les regroupements, les agrégations et l'analyse de dates avec Microsoft SQL Server.
 
-**A hands-on training project focused on SQL Server: schema design, queries, and exercises.**
+## Projet actif
 
-[![SQL Server](https://img.shields.io/badge/SQL%20Server-CC2927?style=flat&logo=microsoftsqlserver&logoColor=white)](#)
-[![Python](https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=white)](#)
-[![T-SQL](https://img.shields.io/badge/T--SQL-336791?style=flat&logo=microsoftsqlserver&logoColor=white)](#)
-[![License](https://img.shields.io/badge/License-MIT-lightgrey?style=flat)](#)
+Le projet à utiliser se trouve dans [version-finale/mission-sql-cinema](version-finale/mission-sql-cinema/README.md).
 
-<br>
+Il comprend :
+- une application locale Flask connectée à SQL Server avec pyodbc ;
+- un schéma relationnel consacré aux films, cinémas, séances, clients et réservations ;
+- un générateur visant 10 000 000 réservations synthétiques ;
+- des scripts de vérification et de préparation d'un rôle SQL en lecture seule ;
+- des tests applicatifs et des tests d'intégration SQL Server ;
+- les manuels et documents de préparation.
 
-[![Stars](https://img.shields.io/github/stars/RufusTheDwarf/SQL_Server_project?style=flat&color=yellow)](https://github.com/RufusTheDwarf/SQL_Server_project/stargazers)
-[![Forks](https://img.shields.io/github/forks/RufusTheDwarf/SQL_Server_project?style=flat&color=blue)](https://github.com/RufusTheDwarf/SQL_Server_project/forks)
-[![Issues](https://img.shields.io/github/issues/RufusTheDwarf/SQL_Server_project?style=flat&color=red)](https://github.com/RufusTheDwarf/SQL_Server_project/issues)
-[![Last Commit](https://img.shields.io/github/last-commit/RufusTheDwarf/SQL_Server_project?style=flat&color=orange)](https://github.com/RufusTheDwarf/SQL_Server_project/commits/main)
 
-</div>
+## Installation rapide sous Windows
 
----
+Depuis l'Explorateur Windows, double-cliquer sur `setup.bat` à la racine du dépôt.
 
-## 📖 Overview
+Depuis PowerShell, il est également possible d'exécuter :
 
-**SQL Server Project** is a personal training repository dedicated to mastering **SQL Server** and **T-SQL**. It contains a collection of exercises, database schemas, and Python scripts designed to generate test data and automate database creation.
-
-The project is a practical playground for exploring relational database concepts, from basic table creation to advanced querying and data manipulation. It is constantly evolving as new exercises and scenarios are added.
-
-<br>
-
-## ✨ Features
-
-| Feature | Description |
-|---|---|
-| **Database Schema Design** | Complete T-SQL scripts to create databases, tables, constraints, and relationships. |
-| **Python Data Generation** | Scripts that automatically generate realistic test data for the database. |
-| **Query Exercises** | A set of SQL queries covering joins, subqueries, aggregations, and window functions. |
-| **Investigation Scenario** | A fun "find the cheaters" exercise using SQL queries to solve a mystery. |
-| **Open House Project** | A complete database project simulating a school open house event, including a local Flask interface for detecting suspicious players. |
-| **Documentation** | Installation guides, admin manuals, and visitor manuals for the open house project. |
-
-<br>
-
-## 🗂️ Project Structure
-
-```text
-SQL_Server_project/
-├── archive/
-├── version-finale/
-│   ├── 01-script-generation-bd/     # Database and data generation
-│   └── portes-ouvertes/              # Local Flask open house interface
-├── archive/
-│   └── ...                           # Archived project files
-│   ├── Y-141-Rafael_Melo-*.sql      # SQL scripts
-│   ├── Y-141-Rafael_Melo-*.py       # Python generation scripts
-│   └── *.docx                       # Reports and documentation
-├── LICENSE
-└── README.md
+```powershell
+.\setup.bat
 ```
 
-<br>
+Le fichier `setup.bat` lance `setup.ps1` avec une politique d'exécution limitée à ce processus. Pour personnaliser l'instance ou le port, utiliser directement PowerShell avec `setup.ps1`.
 
-## 🚀 Getting Started
+Le script vérifie SQL Server, sqlcmd, Python et ODBC Driver 18. Il crée la base si nécessaire, installe le schéma sur une base vide, reprend la génération des réservations si elle a été interrompue, vérifie les données, installe les dépendances, exécute les tests puis lance Flask et ouvre `http://127.0.0.1:5000`.
 
-### Prerequisites
+Le moteur SQL Server et les outils `sqlcmd` doivent être installés au préalable. L'utilisateur Windows doit avoir les droits nécessaires pour créer la base et lire les tables. Le script ne supprime pas de base ni de table existante. Il s'arrête si le schéma est partiel.
 
-- **SQL Server** (Express, Developer, or Standard edition)
-- **SQL Server Management Studio (SSMS)** or **Azure Data Studio**
-- **Python 3.8+** with `pyodbc` or `pymssql` (for data generation scripts)
+Pour choisir un autre port ou une autre instance :
 
-### Installation
+```powershell
+.\setup.ps1 -SqlServer ".\SQLEXPRESS" -Port 5001
+```
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/RufusTheDwarf/SQL_Server_project.git
-   cd SQL_Server_project
-   ```
+Le setup ouvre le navigateur une fois le port disponible et laisse Flask tourner dans un processus séparé. Pour arrêter le serveur, utiliser `Stop-Process -Id` avec le PID affiché par le script. Les journaux sont enregistrés dans `version-finale/mission-sql-cinema/logs/`.
 
-2. **Create the database**
-   - Open SSMS and connect to your SQL Server instance.
-   - Run the SQL scripts located in the `archive/` folder to create the schema and tables.
+## Démarrage
 
-3. **Generate test data (optional)**
-   ```bash
-   pip install pyodbc
-   python archive/Y-141-Rafael_Melo-GenerationBd.py
-   ```
+Lire d'abord le [manuel d'installation](version-finale/mission-sql-cinema/docs/04-manuel-installation.md). La base de données doit être préparée avant le lancement de l'application.
 
-4. **Run the queries**
-   - Open the query files and execute them in SSMS to explore the data.
+Les tests unitaires peuvent être exécutés sans SQL Server. Les tests d'intégration, la génération réelle des données et la mesure des performances exigent une instance SQL Server accessible.
 
-5. **Run the Open House interface**
-   - Open `version-finale/portes-ouvertes/`
-   - Install dependencies:
-     `python -m pip install -r requirements.txt`
-   - Start the interface:
-     `python app.py`
-   - Open `http://127.0.0.1:5000` in a browser.
-   - Default SQL Server instance: `./SQLEXPRESS`
-   - Database: `SQL_Server_Project`
-   - ODBC driver: `ODBC Driver 17 for SQL Server`
-   - The interface is read-only and uses parameterized SELECT queries.
-   - Suspicion is calculated with a score based on the selected criteria.
+Le mode simulation est réservé aux répétitions de l'interface. Il affiche une bannière explicite et ne constitue pas une validation SQL.
 
-<br>
+## Documentation
 
-## 🛠️ Technologies
+- [Manuel d'installation](version-finale/mission-sql-cinema/docs/04-manuel-installation.md)
+- [Manuel d'animation](version-finale/mission-sql-cinema/docs/05-manuel-animation.md)
+- [Fiche de validation du scénario](version-finale/mission-sql-cinema/docs/02-fiche-validation-scenario.md)
+- [Matrice de conformité](version-finale/mission-sql-cinema/docs/03-matrice-conformite.md)
+- [Rapport de projet](version-finale/mission-sql-cinema/docs/06-rapport-projet.md)
+- [Journal de travail](version-finale/mission-sql-cinema/docs/07-journal-travail-modele.md)
+- [Planification des 32 périodes](version-finale/mission-sql-cinema/docs/08-plan-32-periodes.md)
+- [Checklist de migration](version-finale/mission-sql-cinema/docs/11-checklist-migration.md)
+- [Affiche imprimable](version-finale/mission-sql-cinema/docs/12-affiche.html)
+- [Consignes visiteurs](version-finale/mission-sql-cinema/docs/13-document-visiteur.html)
 
-| Category | Technology |
-|---|---|
-| **Database** | Microsoft SQL Server |
-| **Query Language** | T-SQL |
-| **Scripting** | Python 3 |
-| **Tools** | SSMS, Azure Data Studio, Git |
+## Archives
 
-<br>
+Le dossier archive conserve les versions précédentes du travail. Les anciens fichiers de version-finale qui ne font pas partie du dossier mission-sql-cinema sont également historiques. Ils ne constituent pas le parcours d'installation de l'activité actuelle.
 
-## 📚 What You Will Find
+## État et limites
 
-- **DDL Scripts** : `CREATE DATABASE`, `CREATE TABLE`, `ALTER TABLE`, and constraint definitions.
-- **DML Scripts** : `INSERT`, `UPDATE`, `DELETE`, and `MERGE` statements.
-- **Query Exercises** : `SELECT` with joins, subqueries, `GROUP BY`, `HAVING`, and window functions.
-- **Python Automation** : Scripts that connect to SQL Server and generate test data.
-- **Scenarios** : Real-world inspired exercises like the "cheater investigation" and the "open house" database.
+Le scénario doit encore être validé par l'enseignant. Le volume de 10 millions de lignes, le temps de génération, l'espace disque, les performances des requêtes et l'installation sur le poste de Sébeillon doivent être vérifiés sur une véritable instance SQL Server et le PC cible.
 
-<br>
-
-## 🤝 Contributing
-
-Contributions are welcome.
-
-1. Fork the repository.
-2. Create a branch:
-   ```bash
-   git checkout -b feature/my-feature
-   ```
-3. Commit your changes:
-   ```bash
-   git add .
-   git commit -m "Add my feature"
-   ```
-4. Push the branch:
-   ```bash
-   git push origin feature/my-feature
-   ```
-5. Open a Pull Request.
-
-<br>
-
-## 📄 License
-
-This project is licensed under the **MIT License**. See the `LICENSE` file for details.
-
----
-
-<div align="center">
-
-### 👤 Author
-
-**RufusTheDwarf**
-
-[![GitHub](https://img.shields.io/badge/GitHub-RufusTheDwarf-181717?style=flat&logo=github&logoColor=white)](https://github.com/RufusTheDwarf)
-[![Repository](https://img.shields.io/badge/Repo-SQL__Server__project-2ea44f?style=flat&logo=git&logoColor=white)](https://github.com/RufusTheDwarf/SQL_Server_project)
-
-<br>
-
-### 💖 Acknowledgements
-
-- The **SQL Server community** for the endless documentation and resources.
-- **Microsoft** for SQL Server and the free Developer edition.
-- Everyone who shares SQL tips and tricks online.
-
-<br>
-
-### ⭐ Show Your Support
-
-If this project helped you learn something new, consider giving it a star.
-
-[![Star this repo](https://img.shields.io/badge/⭐_Star_this_repo-yellow?style=flat)](https://github.com/RufusTheDwarf/SQL_Server_project/stargazers)
-[![Report an issue](https://img.shields.io/badge/🐛_Report_an_issue-red?style=flat)](https://github.com/RufusTheDwarf/SQL_Server_project/issues)
-[![Fork this repo](https://img.shields.io/badge/🍴_Fork_this_repo-blue?style=flat)](https://github.com/RufusTheDwarf/SQL_Server_project/fork)
-
-<br>
-
----
-
-<sub>Made with ❤️ and a lot of SQL by **RufusTheDwarf** · Licensed under MIT · © 2026</sub>
-
-<br>
-
-*"In SQL we trust."* 🗄️
-
-</div>
-
----
-
-## ETML Open Days Refactor
-
-The original SQL Server learning materials and historical activity remain available. A separate prototype is being developed for the ETML Open Days under `version-finale/mission-sql-cinema/`.
-
-**Provisional activity:** Mission SQL: Cinema Investigation. Visitors answer three questions using synthetic cinema reservation data. The activity demonstrates joins, grouping, counting, sorting and date extraction.
-
-The scenario still requires teacher approval. The application unit tests pass in GitHub Actions, but SQL Server has not been executed in this remote development environment. The actual ten million reservation count, generation duration, disk usage, five to eight minute visitor duration and installation on the target PC must still be verified.
-
-### Refactor resources
-
-- [Activity README](version-finale/mission-sql-cinema/README.md)
-- [Initial repository audit](version-finale/mission-sql-cinema/docs/01-audit-etat-initial.md)
-- [Scenario approval sheet](version-finale/mission-sql-cinema/docs/02-fiche-validation-scenario.md)
-- [Compliance matrix](version-finale/mission-sql-cinema/docs/03-matrice-conformite.md)
-- [Installation manual](version-finale/mission-sql-cinema/docs/04-manuel-installation.md)
-- [Animation manual](version-finale/mission-sql-cinema/docs/05-manuel-animation.md)
-- [Project report](version-finale/mission-sql-cinema/docs/06-rapport-projet.md)
-- [Work log template](version-finale/mission-sql-cinema/docs/07-journal-travail-modele.md)
-- [32-period plan](version-finale/mission-sql-cinema/docs/08-plan-32-periodes.md)
-- [Migration checklist](version-finale/mission-sql-cinema/docs/11-checklist-migration.md)
-- [Printable poster](version-finale/mission-sql-cinema/docs/12-affiche.html)
-- [Visitor instructions](version-finale/mission-sql-cinema/docs/13-document-visiteur.html)
-
-The refactor is maintained on branch `refonte-activite-etml`. It is not merged into `main`.
+Les documents et scripts décrivent la procédure prévue ; ils ne remplacent pas les preuves des essais réels.

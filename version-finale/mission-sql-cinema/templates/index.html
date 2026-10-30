@@ -17,7 +17,7 @@
     </header>
 
     {% if simulation %}
-    <div class="notice simulation" role="status">MODE SIMULATION. Les chiffres affichés sont des exemples. Aucune requête SQL Server réelle n'a fourni ces résultats.</div>
+    <div class="notice simulation" role="status">MODE SIMULATION. Les chiffres affichés sont des exemples. Aucune requête SQL Server n'a été exécutée pour cette partie.</div>
     {% endif %}
 
     {% if erreur %}
@@ -59,10 +59,11 @@
         <div class="learning">
             <strong>Ce que SQL fait ici</strong>
             <p>{{ etapes[etape].notion }}</p>
-            <code>{{ etapes[etape].requete }}</code>
+            <pre><code>{{ etapes[etape].requete }}</code></pre>
         </div>
         {% if options %}
         <form action="{{ url_for('repondre') }}" method="post">
+            <input type="hidden" name="etape" value="{{ etape }}">
             <fieldset>
                 <legend>Choisis la réponse qui te semble correcte</legend>
                 {% for option in options %}
