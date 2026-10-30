@@ -61,7 +61,7 @@ Question posée : « Quel genre attire le plus de réservations ? »
 
 La requête relie les réservations aux séances et aux films. Elle compte les réservations par genre et trie les groupes du total le plus élevé au plus faible.
 
-\`\`\`sql
+```sql
 SELECT
     f.genre AS label,
     f.genre AS value,
@@ -71,7 +71,7 @@ INNER JOIN dbo.Seances AS s ON s.seance_id = r.seance_id
 INNER JOIN dbo.Films AS f ON f.film_id = s.film_id
 GROUP BY f.genre
 ORDER BY total DESC, f.genre;
-\`\`\`
+```
 
 Réponse attendue avec les données générées : Science-fiction, avec 1 880 000 réservations.
 
@@ -81,7 +81,7 @@ Question posée : « Dans quel cinéma réserve-t-on le plus ? »
 
 La requête relie les réservations aux séances et aux cinémas, puis compte les réservations par établissement.
 
-\`\`\`sql
+```sql
 SELECT
     c.nom AS label,
     CONVERT(VARCHAR(12), c.cinema_id) AS value,
@@ -91,7 +91,7 @@ INNER JOIN dbo.Seances AS s ON s.seance_id = r.seance_id
 INNER JOIN dbo.Cinemas AS c ON c.cinema_id = s.cinema_id
 GROUP BY c.nom, c.cinema_id
 ORDER BY total DESC, c.nom;
-\`\`\`
+```
 
 Réponse attendue avec les données générées : Cinéma du Centre, avec 3 000 000 réservations.
 
@@ -101,14 +101,14 @@ Question posée : « Quel jour de la semaine est le plus fréquent ? »
 
 La requête extrait le jour de la semaine de chaque réservation, compte les lignes et trie les totaux.
 
-\`\`\`sql
+```sql
 SELECT
     DATEPART(WEEKDAY, r.date_reservation) AS jour_numero,
     COUNT_BIG(*) AS total
 FROM dbo.Reservations AS r
 GROUP BY DATEPART(WEEKDAY, r.date_reservation)
 ORDER BY total DESC, jour_numero;
-\`\`\`
+```
 
 Réponse attendue avec les données générées : samedi, avec 3 500 000 réservations.
 
