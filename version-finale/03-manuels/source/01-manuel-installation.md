@@ -65,9 +65,9 @@ La configuration par défaut utilise l'instance SQL Server .\SQLEXPRESS et le po
 
 Pour utiliser un autre nom d'instance ou un autre port, ouvrir PowerShell à la racine du dépôt et exécuter par exemple :
 
-\`\`\`powershell
+```powershell
 .\\setup.ps1 -SqlServer ".\\SQLEXPRESS" -Port 5001
-\`\`\`
+```
 
 L'adresse devient alors http://127.0.0.1:5001.
 
@@ -77,13 +77,13 @@ Quand le navigateur s'ouvre, l'application Flask fonctionne dans un processus s�
 
 Pour arrêter Flask, ouvrir PowerShell et exécuter la commande avec le PID affiché :
 
-\`\`\`powershell
+```powershell
 Stop-Process -Id 12345
-\`\`\`
+```
 
 Remplacer 12345 par le PID réel. Les journaux sont conservés dans :
 
-\`version-finale/mission-sql-cinema/logs/\`
+`version-finale/mission-sql-cinema/logs/`
 
 Ne pas supprimer les journaux avant d'avoir analysé un éventuel problème.
 
@@ -100,7 +100,7 @@ Après la préparation initiale, il est possible d'utiliser un compte Windows d�
 
 Exemple à adapter dans SSMS, avec le nom Windows réel à la place de DOMAINE\ComptePO :
 
-\`\`\`sql
+```sql
 USE master;
 GO
 CREATE LOGIN [DOMAINE\\ComptePO] FROM WINDOWS;
@@ -110,7 +110,7 @@ GO
 CREATE USER [DOMAINE\\ComptePO] FOR LOGIN [DOMAINE\\ComptePO];
 ALTER ROLE mission_cinema_lecture ADD MEMBER [DOMAINE\\ComptePO];
 GO
-\`\`\`
+```
 
 Si le login ou l'utilisateur existe déjà, ne pas le recréer. L'administrateur vérifie alors son appartenance au rôle.
 
@@ -163,11 +163,11 @@ Le script affiche également une estimation de l'espace utilisé par les tables 
 
 Ouvrir PowerShell dans version-finale/mission-sql-cinema et exécuter :
 
-\`\`\`powershell
+```powershell
 py -m venv .venv
 .\\.venv\\Scripts\\Activate.ps1
 python -m pip install -r requirements.txt
-\`\`\`
+```
 
 Si l'activation de l'environnement est bloquée, utiliser directement .venv\Scripts\python.exe.
 
@@ -175,12 +175,12 @@ Si l'activation de l'environnement est bloquée, utiliser directement .venv\Scri
 
 Pour une instance locale nommée SQLEXPRESS :
 
-\`\`\`powershell
+```powershell
 $env:SQL_SERVER = ".\\SQLEXPRESS"
 $env:SQL_DATABASE = "MissionCinema"
 $env:SQL_DRIVER = "ODBC Driver 18 for SQL Server"
 python app.py
-\`\`\`
+```
 
 Ouvrir ensuite http://127.0.0.1:5000. L'application écoute uniquement sur l'ordinateur local.
 
@@ -190,17 +190,17 @@ Le mode simulation sert uniquement à répéter l'interface lorsque SQL Server n
 
 Dans PowerShell, depuis le dossier de l'application :
 
-\`\`\`powershell
+```powershell
 $env:DEMO_MODE = "1"
 python app.py
-\`\`\`
+```
 
 Une bannière MODE SIMULATION est affichée et les chiffres sont des exemples. Pour revenir au mode réel :
 
-\`\`\`powershell
+```powershell
 Remove-Item Env:DEMO_MODE -ErrorAction SilentlyContinue
 python app.py
-\`\`\`
+```
 
 Vérifier que la bannière de simulation a disparu.
 
@@ -208,17 +208,17 @@ Vérifier que la bannière de simulation a disparu.
 
 Les tests applicatifs ne nécessitent pas SQL Server :
 
-\`\`\`powershell
+```powershell
 python -m unittest discover -s tests -p test_app.py -v
-\`\`\`
+```
 
 Les tests d'intégration nécessitent une base MissionCinema complète et au moins dix millions de réservations :
 
-\`\`\`powershell
+```powershell
 $env:RUN_SQL_INTEGRATION = "1"
 python -m unittest discover -s tests -p test_sql_integration.py -v
 Remove-Item Env:RUN_SQL_INTEGRATION -ErrorAction SilentlyContinue
-\`\`\`
+```
 
 Ces tests contrôlent le volume, les relations et le résultat des trois défis. Ils peuvent lire un grand nombre de lignes et ne doivent pas être lancés pendant l'accueil du public.
 
